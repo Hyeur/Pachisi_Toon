@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stone
+  m_Name: Brick
   m_Shader: {fileID: -6465566751694194690, guid: 2c2d8fdc544e2984291a57b6dc2ac2a6, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
