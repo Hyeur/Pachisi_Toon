@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows.WebCam;
 
-public class Spawn : MonoBehaviour
+public class TableManager : MonoBehaviour
 {
-    //private
-    // Start is called before the first frame update
+    
     void Start()
     {
         
