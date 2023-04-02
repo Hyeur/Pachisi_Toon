@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Dice
+  - Pad
+  - Team1
+  - Team2
+  - Team3
+  - Team4
   layers:
   - Default
   - TransparentFX

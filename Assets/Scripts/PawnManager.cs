@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows.WebCam;
 
-public class TableManager : MonoBehaviour
+public class PawnManager : MonoBehaviour
 {
-    
+    private List<Pawn> _team1;
+    private List<Pawn> _team2;
+    private List<Pawn> _team3;
+    private List<Pawn> _team4;
     void Start()
     {
         
