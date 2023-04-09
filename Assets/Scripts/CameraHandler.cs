@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CameraHandler : MonoBehaviour
@@ -10,6 +11,7 @@ public class CameraHandler : MonoBehaviour
     [SerializeField] private float rotationSpeed = 0.2f;
     private Vector3 _prevPosition;
 
+    private float[] _anchors = { 0, 90, 180, -90 };
     void Start()
     {
         
@@ -32,6 +34,8 @@ public class CameraHandler : MonoBehaviour
             
             _prevPosition = Input.mousePosition;
         }
+
+        
     }
 
 

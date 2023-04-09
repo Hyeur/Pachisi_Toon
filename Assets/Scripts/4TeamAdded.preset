@@ -72,4 +72,8 @@ Preset:
     propertyPath: team4GPads.Array.size
     value: 0
     objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _mainPath.Array.size
+    value: 0
+    objectReference: {fileID: 0}
   m_ExcludedProperties: []

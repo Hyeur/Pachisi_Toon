@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class PadManager : MonoBehaviour
 {
-    public static PadManager instance;
+    public static PadManager Instance;
     
     [SerializeField] protected GameObject t1;
     [SerializeField] protected GameObject t2;
@@ -31,10 +33,14 @@ public class PadManager : MonoBehaviour
                                       
     [SerializeField] protected List<Pad> team4GPads;
 
-    [SerializeField] public List<Pad> _mainPath;
+    [SerializeField] protected List<Pad> _mainPath;
+
+    public Dictionary<int, Pad> map = new Dictionary<int, Pad>();
     void Start()
     {
-        PadManager instance = this;
+        Instance = this;
+
+        
     }
 
     // Update is called once per frame
@@ -43,13 +49,12 @@ public class PadManager : MonoBehaviour
         
     }
 
-    public void createMainPath(List<Pad> newPath)
+    public void createMainPath(List<Pad> listAllPads)
     {
-        foreach (Pad pad in newPath)
+        for (int i = 0; i < listAllPads.Count; i++)
         {
-            _mainPath.Add(pad);
+            map.Add(i+1, listAllPads[i]);
         }
-        
     }
 
     public void loadPads()
@@ -68,6 +73,12 @@ public class PadManager : MonoBehaviour
                 return;
             foreach (Pad pad in team.Key.GetComponentsInChildren<Pad>())
             {
+                //add Tag
+                if (!pad.gameObject.CompareTag("Pad"))
+                {
+                    pad.gameObject.tag = "Pad";
+                }
+
                 if (pad.padName.Contains("L"))
                 {
                     if (pad.padName.Contains("0"))
@@ -84,7 +95,12 @@ public class PadManager : MonoBehaviour
             }
             team.Value[0] = team.Value[0].OrderBy(o => int.Parse(o.padName.Trim('L'))).ToList();
             team.Value[1] = team.Value[1].OrderBy(o => int.Parse(o.padName.Trim('G'))).ToList();
-            createMainPath(team.Value[0]);
+            _mainPath.AddRange(team.Value[0]);
+        }
+
+        if (_mainPath.Count > 0)
+        {
+            createMainPath(_mainPath);
         }
     }
 }

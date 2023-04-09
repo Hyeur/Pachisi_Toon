@@ -60,12 +60,7 @@ public class Dice : MonoBehaviour
         if (_isIdle == status)
             return;
         
-        if (status == true)
-            Debug.Log("Result " + getTossResult());
-        
         _isIdle = status;
-        
-        Debug.Log(_isIdle);
     }
 
     private Vector3 getVelocity()
