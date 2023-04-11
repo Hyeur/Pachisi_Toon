@@ -1,16 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PawnManager : MonoBehaviour
 {
     public static PawnManager Instance;
     
-    [SerializeField] protected GameObject t1;
-    [SerializeField] protected GameObject t2;
-    [SerializeField] protected GameObject t3;
-    [SerializeField] protected GameObject t4;
+    [SerializeField] protected float movingTimeSpent = 0.3f;
+    
+    [SerializeField] protected Team t1;
+    [SerializeField] protected Team t2;
+    [SerializeField] protected Team t3;
+    [SerializeField] protected Team t4;
     
     [SerializeField] protected List<Pawn> team1Pawn;
     
@@ -42,7 +46,7 @@ public class PawnManager : MonoBehaviour
 
     public void loadPawn()
     {
-        var teams = new Dictionary<GameObject,List<Pawn>>()
+        var teams = new Dictionary<Team,List<Pawn>>()
         {
             {t1,team1Pawn},
             {t2,team2Pawn},
@@ -76,28 +80,42 @@ public class PawnManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         foreach (Pawn pawn in listPawn)
         {
-            pawn.respawn();
+            if (!pawn._isReady)
+            {
+                pawn.recoveryToCurrentPad();
+            }
             yield return new WaitForSeconds(1f);
         }
     }
 
     public void movePawn(Pawn pawn, int step)
     {
-        if (!pawn._isFinish && pawn._isOut && pawn._isReady)
-        {
-            
-            int destinationIndex = pawn.getCurrentPadIndex() + step;
+        StartCoroutine(movePawnOneStep(pawn,step));
+    }
 
-            if (destinationIndex > 40)
+    private IEnumerator movePawnOneStep(Pawn pawn, int stack)
+    {
+        for (int i = 0; i < stack; i++)
+        {
+            if (!pawn._isFinish && !pawn._isMoving && pawn._isOut && pawn._isReady )
             {
-                destinationIndex -= 40;
+                int destinationIndex = pawn.getCurrentPadIndex() + 1;
+
+                if (destinationIndex > 40)
+                {
+                    destinationIndex -= 40;
+                }
+                Pad destinationPad = PadManager.Instance.map[destinationIndex];
+                //set new position
+                pawn.setCurrentPad(destinationPad);
+                //animation
+                pawn.getRb().freezeRotation = true;
+                pawn._isMoving = true;
+                pawn.transform.DOJump(destinationPad.actualPos,1,1,movingTimeSpent);
+                yield return new WaitForSeconds(movingTimeSpent);
+                pawn._isMoving = false;
+                pawn.getRb().freezeRotation = false;
             }
-            Pad destinationPad = PadManager.Instance.map[destinationIndex];
-            //set new position
-            pawn.setCurrentPad(destinationPad);
-            
-            //animation
-            pawn.transform.position = destinationPad.actualPos;
         }
     }
     

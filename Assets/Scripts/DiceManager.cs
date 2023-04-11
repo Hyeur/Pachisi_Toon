@@ -40,9 +40,7 @@ public class DiceManager : MonoBehaviour
         {
             result += dice.getTossResult();
         }
-
         resetToCenter();
-        Debug.Log(result);
         return result;
     }
 

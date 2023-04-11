@@ -10,13 +10,12 @@ public class Pawn : MonoBehaviour
     [SerializeField] public bool _isOut = false;
     
     [SerializeField] public bool _isReady;
-    [SerializeField] public bool _isFinish;
-
+    [SerializeField] public bool _isFinish = false;
+    [SerializeField] public bool _isMoving = false;
+    private Rigidbody _rigidbody;
     [SerializeField] protected Pad currentPad;
 
-    public GameObject Team;
-    
-    private Rigidbody _rigidbody;
+    public Team Team;
     void Start()
     {
 
@@ -24,7 +23,7 @@ public class Pawn : MonoBehaviour
         _isReady = false;
         try
         {
-            _rigidbody = gameObject.GetComponent<Rigidbody>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
         catch (Exception e)
         {
@@ -35,10 +34,16 @@ public class Pawn : MonoBehaviour
     
     void Update()
     {
-        if (_isOut)
+        updateOutStatus();
+        if (currentPad)
         {
             updateReadyStatus();
         }
+    }
+
+    public Rigidbody getRb()
+    {
+        return _rigidbody;
     }
 
     public void setCurrentPad(Pad pad)
@@ -68,7 +73,6 @@ public class Pawn : MonoBehaviour
             if (_isReady)
             {
                 _isReady = false;
-                Debug.Log("_isReady = false");
             }
         }
         else
@@ -76,24 +80,33 @@ public class Pawn : MonoBehaviour
             if (!_isReady)
             {
                 _isReady = true;
-                Debug.Log("_isReady = true");
             }
         }
+    }
+
+    private void updateOutStatus()
+    {
+        _isOut = currentPad ? true : false;
     }
 
     public void recoveryToCurrentPad()
     {
         if (!_isReady)
         {
-            this.transform.rotation = Quaternion.Euler(0,0,0);
-            this.transform.position = currentPad.transform.position;
+            if (currentPad)
+            {
+                transform.rotation = Quaternion.Euler(0,0,0);
+                transform.position = currentPad.transform.position;
+                Debug.Log($"Respawn {name} to {currentPad}");
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0,0,0);
+                transform.position = Team.transform.position;
+                Debug.Log($"Respawn {name} to {Team.name}");
+            }
         }
     }
-
-    public void respawn()
-    {
-        currentPad = null;
-        transform.position = Team.transform.position;
-    }
+    
     
 }

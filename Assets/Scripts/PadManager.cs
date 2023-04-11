@@ -2,11 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PadManager : MonoBehaviour
 {
@@ -40,7 +36,7 @@ public class PadManager : MonoBehaviour
     {
         Instance = this;
 
-        
+        loadPads();
     }
 
     // Update is called once per frame
@@ -102,5 +98,10 @@ public class PadManager : MonoBehaviour
         {
             createMainPath(_mainPath);
         }
+    }
+
+    public void rerotationIfNeed(Pawn pawn)
+    {
+        
     }
 }

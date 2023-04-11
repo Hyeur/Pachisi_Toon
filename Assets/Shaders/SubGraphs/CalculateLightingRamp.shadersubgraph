@@ -153,7 +153,7 @@
                 "m_Node": {
                     "m_Id": "ea08fb68d338424986f6668b5e0ef780"
                 },
-                "m_SlotId": 5
+                "m_SlotId": 0
             },
             "m_InputSlot": {
                 "m_Node": {
@@ -1084,7 +1084,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Power",
     "m_StageCapability": 3,
-    "m_Value": 1.4600000381469727,
+    "m_Value": 2.7699999809265138,
     "m_DefaultValue": 1.0,
     "m_Labels": []
 }
@@ -1333,10 +1333,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -398.9999694824219,
-            "y": -82.00001525878906,
-            "width": 144.99996948242188,
-            "height": 138.0
+            "x": -403.0,
+            "y": 31.999982833862306,
+            "width": 145.0,
+            "height": 138.00001525878907
         }
     },
     "m_Slots": [
@@ -1351,7 +1351,7 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_filter": 0,
+    "m_filter": 1,
     "m_wrap": 1,
     "m_aniso": 0
 }

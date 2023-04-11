@@ -27,7 +27,6 @@ public class SelectionManager : MonoBehaviour
                     Outline outline = gameObject.AddComponent<Outline>();
                     outline.OutlineMode = Outline.Mode.OutlineVisible;
                     outline.OutlineWidth = 2f;
-                    outline.OutlineColor = Color.red;
                     outline.enabled = false;
                 }
             }
@@ -76,9 +75,11 @@ public class SelectionManager : MonoBehaviour
                 {
                     if (_selection != null)
                     {
+                        _selection.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
                         _selection.gameObject.GetComponent<Outline>().enabled = false;
                     }
                     _selection = hit.transform;
+                    _selection.gameObject.GetComponent<Outline>().OutlineColor = Color.red;
                     _selection.gameObject.GetComponent<Outline>().enabled = true;
                     _highlight = null;
                 }
@@ -86,6 +87,7 @@ public class SelectionManager : MonoBehaviour
                 {
                     if (_selection)
                     {
+                        _selection.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
                         _selection.gameObject.GetComponent<Outline>().enabled = false;
                         _selection = null;
                     }
