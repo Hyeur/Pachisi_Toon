@@ -32,10 +32,14 @@ public class PadManager : MonoBehaviour
     [SerializeField] protected List<Pad> _mainPath;
 
     public Dictionary<int, Pad> map = new Dictionary<int, Pad>();
-    void Start()
+
+    private void Awake()
     {
         Instance = this;
+    }
 
+    void Start()
+    {
         loadPads();
     }
 

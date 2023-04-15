@@ -6,12 +6,34 @@ using UnityEngine.EventSystems;
 
 public class SelectionManager : MonoBehaviour
 {
+    public static SelectionManager Instance;
     [SerializeField] private string[] SelectableTag;
     [SerializeField] private Material highlightMaterial;
     [SerializeField] private Transform _selection;
     [SerializeField] private Transform _highlight;
+    [SerializeField] private bool _active = false;
+    
     private Camera _camera;
 
+    public Pawn pawnSelected;
+    
+    private void Awake()
+    {
+        Instance = this;
+        
+        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+    }
+
+    private void GameManagerOnGameStateChanged(GameManager.GameState state)
+    {
+        _active = (state == GameManager.GameState.PickAPawn);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+    }
+    
     void Start()
     {
         _camera = Camera.main;
@@ -37,15 +59,23 @@ public class SelectionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_camera != null)
+        handleSelector();
+    }
+
+    private void handleSelector()
+    {
+        if (_camera != null && _active)
         {
             if (_highlight != null)
             {
                 _highlight.gameObject.GetComponent<Outline>().enabled = false;
                 _highlight = null;
             }
-            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit = default;
+            
+            
             if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out hit))
             {
                 _highlight = hit.transform;
@@ -69,6 +99,7 @@ public class SelectionManager : MonoBehaviour
                     _highlight = null;
                 }
             }
+            
             if (Input.GetMouseButtonDown(0))
             {
                 if (_highlight)
@@ -79,6 +110,11 @@ public class SelectionManager : MonoBehaviour
                         _selection.gameObject.GetComponent<Outline>().enabled = false;
                     }
                     _selection = hit.transform;
+                    if (_selection.CompareTag("Pawn"))
+                    {
+                        pawnSelected = _selection.gameObject.GetComponent<Pawn>();
+                        GameManager.Instance.updateGameState(GameManager.GameState.Pawning);
+                    }
                     _selection.gameObject.GetComponent<Outline>().OutlineColor = Color.red;
                     _selection.gameObject.GetComponent<Outline>().enabled = true;
                     _highlight = null;
@@ -94,7 +130,19 @@ public class SelectionManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void emptyPawnSelection()
+    {
+        pawnSelected = null;
+    }
+    private void handleSelection(RaycastHit hit)
+    {
         
+    }
+
+    private void handleHighlight(Ray ray,RaycastHit hit)
+    {
         
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +19,26 @@ public class Dice : MonoBehaviour
 
     private MeshRenderer _visible;
 
+    public Outline outline;
+
     void Awake()
     {
+        try
+        {
+            outline = GetComponent<Outline>();
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            throw;
+        }
         _rigidbody = this.GetComponent<Rigidbody>();
 
         _visible = this.GetComponent<MeshRenderer>();
 
         _faceList = GetComponentsInChildren<Transform>();
 
-        Dice.Instance = this;
+        Instance = this;
         
     }
 
@@ -46,12 +58,12 @@ public class Dice : MonoBehaviour
         _faceList = _faceList.OrderBy(o => o.transform.position.y).ToArray();
     }
 
-    public float getTossResult()
+    public int getTossResult()
     {
         rankTheFaces();
         
         Transform r = _faceList[6];
-        float result = float.Parse(r.name);
+        int result = int.Parse(r.name);
         
         return result;
     }

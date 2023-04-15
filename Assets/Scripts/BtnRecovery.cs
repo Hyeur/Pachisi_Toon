@@ -8,6 +8,6 @@ public class BtnRecovery : BaseButton
     protected override void OnClick()
     {
         PawnManager.Instance.resetAllPawn();
-        Debug.Log("clickeds");
+        Debug.Log("resetAllPawn");
     }
 }

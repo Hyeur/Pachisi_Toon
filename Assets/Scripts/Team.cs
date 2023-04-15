@@ -2,26 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Team : MonoBehaviour
 {
-    public static Team Instance;
-    
-    [SerializeField] private string _name = "TeamName";
-    [SerializeField] private Pawn[] _pawns;
+    public string teamName = "TeamName";
+    public List<Pawn> pawns;
     [SerializeField] private bool isFinish = false;
     void Start()
     {
-        Instance = this;
-
-        _name = transform.name;
-        _pawns = transform.GetComponentsInChildren<Pawn>();
+        teamName = transform.name;
     }
 
     public string Name
     {
-        get => _name;
-        set => _name = value;
+        get => teamName;
+        set => teamName = value;
     }
 
     public bool Isfinish
@@ -32,10 +28,15 @@ public class Team : MonoBehaviour
 
     public int getNumsFinishPawn()
     {
-        return _pawns.Count(x => x._isFinish);
+        return pawns.Count(x => x._isFinish);
     }
     public int getNumsOutPawn()
     {
-        return _pawns.Count(x => x._isOut);
+        return pawns.Count(x => x._isOut);
+    }
+
+    public int getNumsPawn()
+    {
+        return pawns.Count();
     }
 }

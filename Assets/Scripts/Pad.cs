@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,10 @@ public class Pad : MonoBehaviour
     private Pawn _pawnCapture;
 
     public string padName = "defaultPadName";
+
+    public Outline outline;
+    
+    
 
     public Pad(Vector3 actualPos, bool isGate, bool isFree, Pawn pawnCapture, string padName)
     {
@@ -31,6 +36,16 @@ public class Pad : MonoBehaviour
         if (name.Length != 0)
         {
             padName = name;
+        }
+        
+        try
+        {
+            outline = GetComponent<Outline>();
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            throw;
         }
     }
 

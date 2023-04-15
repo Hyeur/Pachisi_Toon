@@ -10,6 +10,7 @@ TagManager:
   - Team2
   - Team3
   - Team4
+  - Pawn
   layers:
   - Default
   - TransparentFX

@@ -24,7 +24,6 @@ public abstract class BaseButton : MonoBehaviour
     protected virtual void AddOnClickEvent()
     {
         _button.onClick.AddListener(OnClick);
-        Debug.Log("Added listener");
     }
 
     protected abstract void OnClick();

@@ -16,11 +16,22 @@ public class Pawn : MonoBehaviour
     [SerializeField] protected Pad currentPad;
 
     public Team Team;
+
+    public Outline outline;
     void Start()
     {
 
         _isOut = false;
         _isReady = false;
+        try
+        {
+            outline = GetComponent<Outline>();
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            throw;
+        }
         try
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -35,10 +46,9 @@ public class Pawn : MonoBehaviour
     void Update()
     {
         updateOutStatus();
-        if (currentPad)
-        {
-            updateReadyStatus();
-        }
+
+        updateReadyStatus(currentPad);
+
     }
 
     public Rigidbody getRb()
@@ -66,9 +76,10 @@ public class Pawn : MonoBehaviour
         }
         
     }
-    private void updateReadyStatus()
+    private void updateReadyStatus(Pad _currentPad)
     {
-        if ( Vector3.Distance(currentPad.transform.position,this.transform.position) > 0.3f)
+        if (!_currentPad) return;
+        if ( (_currentPad.actualPos - transform.position).sqrMagnitude > Mathf.Pow(0.3f,0.3f))
         {
             if (_isReady)
             {

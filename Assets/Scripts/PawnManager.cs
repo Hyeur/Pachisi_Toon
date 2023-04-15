@@ -8,14 +8,13 @@ using UnityEngine.Serialization;
 public class PawnManager : MonoBehaviour
 {
     public static PawnManager Instance;
+
+    private bool _active;
     
     [SerializeField] protected float movingTimeSpent = 0.3f;
     
-    [SerializeField] protected Team t1;
-    [SerializeField] protected Team t2;
-    [SerializeField] protected Team t3;
-    [SerializeField] protected Team t4;
-    
+    [SerializeField] protected List<Team> _listTeam;
+
     [SerializeField] protected List<Pawn> team1Pawn;
     
     [SerializeField] protected List<Pawn> team2Pawn;
@@ -23,14 +22,27 @@ public class PawnManager : MonoBehaviour
     [SerializeField] protected List<Pawn> team3Pawn; 
                                       
     [SerializeField] protected List<Pawn> team4Pawn;
-
+    
+    private void GameManagerOnGameStateChanged(GameManager.GameState state)
+    {
+        _active = (state == GameManager.GameState.Pawning);
+    }
+    
     private void Awake()
     {
         Instance = this;
+        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
     }
 
     void Start()
     {
+
+        _listTeam = TeamManager.Instance.TEAMS;
         
         loadPawn();
         //resetAllPawn();
@@ -48,10 +60,10 @@ public class PawnManager : MonoBehaviour
     {
         var teams = new Dictionary<Team,List<Pawn>>()
         {
-            {t1,team1Pawn},
-            {t2,team2Pawn},
-            {t3,team3Pawn},
-            {t4,team4Pawn}
+            {_listTeam[0],team1Pawn},
+            {_listTeam[1],team2Pawn},
+            {_listTeam[2],team3Pawn},
+            {_listTeam[3],team4Pawn}
         };
 
         foreach (var team in teams)
@@ -64,6 +76,7 @@ public class PawnManager : MonoBehaviour
                     team.Value.Add(pawn);
                 }
             }
+            team.Key.pawns = team.Value;
         }
     }
 
@@ -77,7 +90,7 @@ public class PawnManager : MonoBehaviour
     }
     private IEnumerator resetAllPawnByTeam(List<Pawn> listPawn)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         foreach (Pawn pawn in listPawn)
         {
             if (!pawn._isReady)
@@ -90,6 +103,7 @@ public class PawnManager : MonoBehaviour
 
     public void movePawn(Pawn pawn, int step)
     {
+        if (!_active) return;
         StartCoroutine(movePawnOneStep(pawn,step));
     }
 
@@ -115,7 +129,15 @@ public class PawnManager : MonoBehaviour
                 yield return new WaitForSeconds(movingTimeSpent);
                 pawn._isMoving = false;
                 pawn.getRb().freezeRotation = false;
+                
+                
+                if (stack == i + 1)
+                {
+                    GameManager.Instance.updateGameState(GameManager.GameState.SwitchTeam);
+                }
             }
+
+            
         }
     }
     

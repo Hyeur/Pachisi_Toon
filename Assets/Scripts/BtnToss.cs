@@ -6,6 +6,6 @@ public class BtnToss : BaseButton
 {
     protected override void OnClick()
     {
-        Debug.Log("clicked");
+        DiceManager.Instance.toss(GameManager.Instance.currentTeam);
     }
 }
