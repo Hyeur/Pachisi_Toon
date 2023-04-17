@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,15 +13,31 @@ public class Pawn : MonoBehaviour
     [SerializeField] public bool _isReady;
     [SerializeField] public bool _isFinish = false;
     [SerializeField] public bool _isMoving = false;
+    [SerializeField] public bool _isMoved = false;
     private Rigidbody _rigidbody;
     [SerializeField] protected Pad currentPad;
 
     public Team Team;
 
     public Outline outline;
+
+    private void Awake()
+    {
+        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+    }
+
+    private void GameManagerOnGameStateChanged(GameManager.GameState state)
+    {
+        _rigidbody.freezeRotation = !(state == GameManager.GameState.RollTheDice);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+    }
+
     void Start()
     {
-
         _isOut = false;
         _isReady = false;
         try
@@ -35,20 +52,24 @@ public class Pawn : MonoBehaviour
         try
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _rigidbody.freezeRotation = true;
         }
         catch (Exception e)
         {
             Debug.Log(e);
             throw;
         }
+
+        Team = GetComponentInParent<Team>();
+
     }
     
-    void Update()
+    void FixedUpdate()
     {
         updateOutStatus();
 
         updateReadyStatus(currentPad);
-
+        
     }
 
     public Rigidbody getRb()
@@ -63,11 +84,12 @@ public class Pawn : MonoBehaviour
             currentPad = pad;
         }
     }
-    public int getCurrentPadIndex()
+    
+    public Pad getCurrentPad()
     {
-        return PadManager.Instance.map.FirstOrDefault(key => key.Value == currentPad).Key;
+        return currentPad;
     }
-
+    
     public void setPawnStatus(bool isOut)
     {
         if (!_isOut.Equals(isOut))
@@ -78,8 +100,12 @@ public class Pawn : MonoBehaviour
     }
     private void updateReadyStatus(Pad _currentPad)
     {
-        if (!_currentPad) return;
-        if ( (_currentPad.actualPos - transform.position).sqrMagnitude > Mathf.Pow(0.3f,0.3f))
+        if (!_currentPad)
+        {
+            _isReady = false;
+            return;
+        }
+        if ( (_currentPad.actualPos - transform.position).sqrMagnitude > Mathf.Pow(0.3f,0.3f) || Mathf.Abs(transform.rotation.eulerAngles.x) > 10 || Mathf.Abs(transform.rotation.eulerAngles.z) > 10)
         {
             if (_isReady)
             {
@@ -106,15 +132,15 @@ public class Pawn : MonoBehaviour
         {
             if (currentPad)
             {
-                transform.rotation = Quaternion.Euler(0,0,0);
-                transform.position = currentPad.transform.position;
-                Debug.Log($"Respawn {name} to {currentPad}");
+                transform.DORotate(new Vector3( 0, transform.rotation.y, 0), 1f).SetEase(Ease.InSine);
+                transform.DOJump(currentPad.actualPos, 1,1,1f).SetEase(Ease.InSine);
+                // Debug.Log($"Respawn {name} to {currentPad}");
             }
             else
             {
                 transform.rotation = Quaternion.Euler(0,0,0);
-                transform.position = Team.transform.position;
-                Debug.Log($"Respawn {name} to {Team.name}");
+                transform.DOMove(Team.transform.position, 1f).SetEase(Ease.InSine);
+                // Debug.Log($"Respawn {name} to {Team.name}");
             }
         }
     }

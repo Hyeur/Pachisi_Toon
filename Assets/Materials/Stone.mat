@@ -118,7 +118,7 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Outline_Thickness: -0.18
+    - _Outline_Thickness: -0.5
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -137,7 +137,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Lit_Color: {r: 0.9339623, g: 0.85822994, b: 0.6828498, a: 0.9843137}
-    - _Outline_Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Outline_Color: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6969501112696142831

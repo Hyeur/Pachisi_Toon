@@ -12,6 +12,8 @@ public class Team : MonoBehaviour
     void Start()
     {
         teamName = transform.name;
+
+        pawns = GetComponentsInChildren<Pawn>().ToList();
     }
 
     public string Name

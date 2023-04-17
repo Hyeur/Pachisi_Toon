@@ -11,6 +11,7 @@ public class Pad : MonoBehaviour
     private Pawn _pawnCapture;
 
     public string padName = "defaultPadName";
+    public string padTeam;
 
     public Outline outline;
     
@@ -29,6 +30,7 @@ public class Pad : MonoBehaviour
     {
         actualPos = transform.position;
         setPadName(gameObject.name);
+        padTeam = transform.parent.name.Substring(0, 5);
     }
 
     public void setPadName(string name)
@@ -59,5 +61,6 @@ public class Pad : MonoBehaviour
     {
         return _pawnCapture;
     }
+    
     
 }

@@ -31,8 +31,11 @@ public class PadManager : MonoBehaviour
 
     [SerializeField] protected List<Pad> _mainPath;
 
-    public Dictionary<int, Pad> map = new Dictionary<int, Pad>();
-
+    public Dictionary<int, Pad> Lmap = new Dictionary<int, Pad>();
+    public Dictionary<int, Pad> GmapTeam1 = new Dictionary<int, Pad>();
+    public Dictionary<int, Pad> GmapTeam2 = new Dictionary<int, Pad>();
+    public Dictionary<int, Pad> GmapTeam3 = new Dictionary<int, Pad>();
+    public Dictionary<int, Pad> GmapTeam4 = new Dictionary<int, Pad>();
     private void Awake()
     {
         Instance = this;
@@ -49,11 +52,27 @@ public class PadManager : MonoBehaviour
         
     }
 
-    public void createMainPath(List<Pad> listAllPads)
+    private void createMainPath(List<Pad> listLPads)
     {
-        for (int i = 0; i < listAllPads.Count; i++)
+        for (int i = 0; i < listLPads.Count; i++)
         {
-            map.Add(i+1, listAllPads[i]);
+            Lmap.Add(i+1, listLPads[i]);
+        }
+    }
+
+    private void loadGmap()
+    {
+        createGoalPath(GmapTeam1,team1GPads);
+        createGoalPath(GmapTeam2,team2GPads);
+        createGoalPath(GmapTeam3,team3GPads);
+        createGoalPath(GmapTeam4,team4GPads);
+    }
+    private void createGoalPath(Dictionary<int, Pad> gmap, List<Pad> listGPads)
+    {
+        listGPads = listGPads.OrderBy(o => int.Parse(o.padName.Trim('G'))).ToList();
+        for (int i = 0; i < listGPads.Count; i++)
+        {
+            gmap.Add(i+1, listGPads[i]);
         }
     }
 
@@ -62,8 +81,8 @@ public class PadManager : MonoBehaviour
         var TEAMS = new Dictionary<GameObject,List<List<Pad>>>()
         {
             {t1,new List<List<Pad>>(){team1LPads,team1GPads}},
-            {t2,new List<List<Pad>>(){team2LPads,team2GPads}},
-            {t3,new List<List<Pad>>(){team3LPads,team3GPads}},
+            {t2,new List<List<Pad>>(){team2LPads,team3GPads}},
+            {t3,new List<List<Pad>>(){team3LPads,team2GPads}},
             {t4,new List<List<Pad>>(){team4LPads,team4GPads}}
         };
 
@@ -95,17 +114,31 @@ public class PadManager : MonoBehaviour
             }
             team.Value[0] = team.Value[0].OrderBy(o => int.Parse(o.padName.Trim('L'))).ToList();
             team.Value[1] = team.Value[1].OrderBy(o => int.Parse(o.padName.Trim('G'))).ToList();
+            
+            
             _mainPath.AddRange(team.Value[0]);
         }
 
         if (_mainPath.Count > 0)
         {
             createMainPath(_mainPath);
-        }
+        }        
+        loadGmap();
     }
 
-    public void rerotationIfNeed(Pawn pawn)
+    public int getCurrentPadIndexofPawn(Pawn pawn)
     {
-        
+        return Lmap.FirstOrDefault(key => key.Value == pawn.getCurrentPad()).Key;
     }
+    public int getTheNextPadIndxofPawn(Pawn pawn)
+    {
+        int inx = getCurrentPadIndexofPawn(pawn) + 1;
+        if (inx > 40)
+        {
+            inx -= 40;
+        }
+
+        return inx;
+    }
+    
 }

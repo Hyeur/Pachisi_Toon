@@ -12,7 +12,7 @@ public class DiceManager : MonoBehaviour
     public static DiceManager Instance;
 
     [SerializeField] protected List<Dice> diceList;
-    //private float _result = 0;
+    public List<int> twoResult;
     public bool isRolled;
     [SerializeField] private bool _active = false;
 
@@ -57,10 +57,15 @@ public class DiceManager : MonoBehaviour
     {
         if (!isAllDiceStable())
             return 0;
-        resetToCenter(needResetDiceToEnter);
+        if (needResetDiceToEnter)
+        {
+            resetToCenter();
+        }
         int result = 0;
+        twoResult.Clear();
         foreach (Dice dice in diceList)
         {
+            twoResult.Add(dice.getTossResult());
             result += dice.getTossResult();
         }
         return result;
@@ -113,9 +118,8 @@ public class DiceManager : MonoBehaviour
         diceObject.GetComponent<Dice>().getRb().AddTorque(torque * 30);
     }
 
-    public void resetToCenter(bool needResetDiceToEnter)
+    public void resetToCenter()
     {
-        if (!needResetDiceToEnter) return;
         Vector3 reset = new Vector3(0, 1, -1);
         foreach (Dice dice in diceList)
         {
@@ -134,5 +138,10 @@ public class DiceManager : MonoBehaviour
                 GameManager.Instance.updateGameState(GameManager.GameState.PickAPawn);
             }
         }
+    }
+
+    public List<int> getTwoResults()
+    {
+        return twoResult;
     }
 }

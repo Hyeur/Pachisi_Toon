@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Pawning:
                 Pawn theChosenOne = SelectionManager.Instance.pawnSelected;
-                int diceResult = DiceManager.Instance.getTotalResult();
+                int diceResult = DiceManager.Instance.getTotalResult(true);
                 if (theChosenOne && theChosenOne._isOut && theChosenOne._isReady && theChosenOne.Team == currentTeam)
                 {
                     PawnManager.Instance.movePawn(theChosenOne,diceResult);
@@ -88,8 +88,4 @@ public class GameManager : MonoBehaviour
         
         
     }
-    
-    
-
-    
 }

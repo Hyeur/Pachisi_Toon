@@ -39,6 +39,7 @@ public class TeamManager : MonoBehaviour
 
     public List<Team> getUnFinishTeams()
     {
-        return TEAMS.Where(t => t.getNumsFinishPawn() != 4 && t.getNumsPawn() > 0).ToList();
+        return TEAMS.Where(t => t.getNumsFinishPawn() < t.getNumsPawn() && t.getNumsPawn() > 0).ToList();
     }
+    
 }
