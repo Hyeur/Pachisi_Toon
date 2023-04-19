@@ -130,7 +130,7 @@ public class PadManager : MonoBehaviour
     {
         return Lmap.FirstOrDefault(key => key.Value == pawn.getCurrentPad()).Key;
     }
-    public int getTheNextPadIndxofPawn(Pawn pawn)
+    public int getTheNextPadIndxOfPawn(Pawn pawn)
     {
         int inx = getCurrentPadIndexofPawn(pawn) + 1;
         if (inx > 40)
@@ -139,6 +139,21 @@ public class PadManager : MonoBehaviour
         }
 
         return inx;
+    }
+
+
+    public bool anyPawnOnTheWay(Pawn pawn, int step)
+    {
+        // int[] path ;
+        // for (int i = 0; i < step; i++)
+        // {
+        //     Debug.Log(getTheNextPadIndxOfPawn(pawn) + i);
+        //     path[i] = getTheNextPadIndxOfPawn(pawn) + i;
+        // }
+
+       // return path.Any(pad => Lmap[pad].isFree == false);
+       return Lmap.Keys.Any(padIndex => Lmap[padIndex].isFree == false && padIndex > getCurrentPadIndexofPawn(pawn) &&
+                                        padIndex <= getCurrentPadIndexofPawn(pawn) + step);
     }
     
 }

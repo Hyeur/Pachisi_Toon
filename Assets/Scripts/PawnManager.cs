@@ -108,18 +108,27 @@ public class PawnManager : MonoBehaviour
     }
     private async Task movePawnWithStep(Pawn pawn, int step)
     {
-        if (pawn._isFinish || pawn._isMoving && !pawn._isOut && !pawn._isReady && pawn._isMoved) return;
+        if (PadManager.Instance.anyPawnOnTheWay(pawn, step))
+        {
+            cannotMoveandPickAgain(pawn);
+            return;
+        }
+        if (pawn._isFinish || pawn._isMoving && !pawn._isOut && !pawn._isReady && pawn._isMoved)
+        {
+            cannotMoveandPickAgain(pawn);
+            return;
+        };
+        DiceManager.Instance.resetToCenter();
         var tasks = new Task[step];
         for (int i = 0; i < step; i++)
         {
-            Debug.Log( "Normal");
-            int destinationIndex = PadManager.Instance.getTheNextPadIndxofPawn(pawn);
+            
+            int destinationIndex = PadManager.Instance.getTheNextPadIndxOfPawn(pawn);
             Pad destinationPad = PadManager.Instance.Lmap[destinationIndex];
             //set new position
-            pawn.getCurrentPad().isFree = true;
+            pawn.getCurrentPad().setPawnCaptured(null);
             pawn.setCurrentPad(destinationPad);
-            destinationPad.isFree = false;
-            
+
             //animation
             pawn._isMoving = true;
 
@@ -161,7 +170,6 @@ public class PawnManager : MonoBehaviour
 
         if (pawn._isFinish)
         {
-            pawn.getCurrentPad().isFree = true;
             List<int> twoResult = DiceManager.Instance.getTwoResults().OrderBy(x => x).ToList();
             foreach (var item in GPads)
             {
@@ -180,7 +188,6 @@ public class PawnManager : MonoBehaviour
             }
             if (firstEmptyInx <= GPads.FirstOrDefault(i => i.Value == pawn.getCurrentPad()).Key)
             {
-                pawn.getCurrentPad().isFree = false;
                 cannotMoveandPickAgain(pawn);
                 return;
             }
@@ -208,11 +215,10 @@ public class PawnManager : MonoBehaviour
         if (!pawn._isMoving && pawn._isOut && pawn._isReady && firstEmptyInx > 0 && !pawn._isMoved)
         {
             
-            Debug.Log( "Entry: " + firstEmptyInx);
+            DiceManager.Instance.resetToCenter();
             Pad destinationPad = GPads[firstEmptyInx];
-            pawn.getCurrentPad().isFree = true;
+            pawn.getCurrentPad().setPawnCaptured(null);
             pawn.setCurrentPad(destinationPad);
-            destinationPad.isFree = false;
             pawn._isMoving = true;
             await pawn.transform.DOJump(destinationPad.actualPos, 3, 1, 1.5f).SetEase(Ease.InSine).OnComplete(() =>
             {
@@ -231,7 +237,7 @@ public class PawnManager : MonoBehaviour
         if (pawn._isReady)
         {
             int currentIdx = PadManager.Instance.getCurrentPadIndexofPawn(pawn);
-            int nextIdx = PadManager.Instance.getTheNextPadIndxofPawn(pawn);
+            int nextIdx = PadManager.Instance.getTheNextPadIndxOfPawn(pawn);
             pawn.transform.DOLookAt(2 * pawn.transform.position - PadManager.Instance.Lmap[nextIdx].transform.position, .1f);
 
         }

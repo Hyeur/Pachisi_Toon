@@ -826,7 +826,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2031028935}
-  - {fileID: 1804662995}
   - {fileID: 2132367259}
   m_Father: {fileID: 562084981}
   m_RootOrder: 0
@@ -4966,76 +4965,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801294125}
   m_CullTransparentMesh: 1
---- !u!1001 &1804662994
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 403405303}
-    m_Modifications:
-    - target: {fileID: 6979111177222467748, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467749, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: currentPad
-      value: 
-      objectReference: {fileID: 224639165}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -6.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979111177222467772, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-      propertyPath: m_Name
-      value: default (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
---- !u!4 &1804662995 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-  m_PrefabInstance: {fileID: 1804662994}
-  m_PrefabAsset: {fileID: 0}
 --- !u!65 &1839847964
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5619,7 +5548,7 @@ PrefabInstance:
     - target: {fileID: 6979111177222467749, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: currentPad
       value: 
-      objectReference: {fileID: 224639165}
+      objectReference: {fileID: 1703174552}
     - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -5713,10 +5642,10 @@ PrefabInstance:
     - target: {fileID: 6979111177222467749, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: currentPad
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1166689408}
     - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_LocalPosition.x

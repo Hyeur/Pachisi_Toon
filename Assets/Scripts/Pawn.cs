@@ -66,6 +66,12 @@ public class Pawn : MonoBehaviour
     
     void FixedUpdate()
     {
+
+        if (currentPad)
+        {
+            currentPad.setPawnCaptured(this);
+        }
+        
         updateOutStatus();
 
         updateReadyStatus(currentPad);

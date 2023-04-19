@@ -33,6 +33,29 @@ public class Pad : MonoBehaviour
         padTeam = transform.parent.name.Substring(0, 5);
     }
 
+    private void Update()
+    {
+        updateFreeStatus();
+    }
+
+    private void updateFreeStatus()
+    {
+        if (_pawnCapture)
+        {
+            if (isFree)
+            {
+                isFree = false;
+            }
+        }
+        else
+        {
+            if (!isFree)
+            {
+                isFree = true;
+            }
+        }
+    }
+
     public void setPadName(string name)
     {
         if (name.Length != 0)
@@ -51,13 +74,12 @@ public class Pad : MonoBehaviour
         }
     }
 
-    private void capturedByPawn(Pawn pawn)
+    public void setPawnCaptured(Pawn pawn = null)
     {
         _pawnCapture = pawn;
-        isFree = false;
     }
 
-    private Pawn getPawnCaptured()
+    public Pawn getPawnCaptured()
     {
         return _pawnCapture;
     }
