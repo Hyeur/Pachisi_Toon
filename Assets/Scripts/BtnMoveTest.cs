@@ -8,7 +8,7 @@ public class BtnMoveTest : BaseButton
     public int step = 3;
     protected override void OnClick()
     {
-        int diceResult = DiceManager.Instance.getTotalResult();
+        int diceResult = DiceManager.Instance.totalResult;
         PawnManager.Instance.movePawn(pawn,diceResult);
     }
 }

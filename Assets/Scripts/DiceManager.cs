@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO.Enumeration;
 using System.Linq;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -13,9 +15,11 @@ public class DiceManager : MonoBehaviour
 
     [SerializeField] protected List<Dice> diceList;
     public List<int> twoResult;
+    public int totalResult = 0;
     public bool isRolled;
     [SerializeField] private bool _active = false;
 
+    public TextMeshProUGUI r;
     private void Awake()
     {
         GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
@@ -33,12 +37,14 @@ public class DiceManager : MonoBehaviour
 
     void Start()
     {
-        DiceManager.Instance = this;
+        Instance = this;
         scanAllDice();
     }
     
     void Update()
     {
+        r.text = "Dice: " + totalResult;
+        updateResult();
         endTurnTracking();
     }
 
@@ -53,28 +59,23 @@ public class DiceManager : MonoBehaviour
         }
     }
 
-    public int getTotalResult(bool needResetDiceToEnter = false)
+    private void updateResult()
     {
-        if (!isAllDiceStable())
-            return 0;
-        if (needResetDiceToEnter)
+        if (isAllDiceStable() && totalResult == 0)
         {
-            resetToCenter();
+            twoResult.Clear();
+            foreach (Dice dice in diceList)
+            {
+                twoResult.Add(dice.getTossResult());
+                totalResult += dice.getTossResult();
+            }
         }
-        int result = 0;
-        twoResult.Clear();
-        foreach (Dice dice in diceList)
-        {
-            twoResult.Add(dice.getTossResult());
-            result += dice.getTossResult();
-        }
-        return result;
+        
     }
 
     public void showResult()
     {
         GameManager.Instance.updateGameState(GameManager.GameState.RollTheDice);
-        getTotalResult();
     }
     private bool isAllDiceStable()
     {
@@ -91,7 +92,11 @@ public class DiceManager : MonoBehaviour
 
     private IEnumerator tossTheDiceByTeam(Team team)
     {
-        foreach (Dice dice in diceList) dice.setVisible(false);
+        foreach (Dice dice in diceList)
+        {
+            dice.setVisible(false);
+        }
+        
         foreach (Dice dice in diceList)
         {
             dice.setVisible(true);
@@ -104,6 +109,7 @@ public class DiceManager : MonoBehaviour
     {
         if (_active)
         {
+            totalResult = 0;
             StartCoroutine(tossTheDiceByTeam(team));
             isRolled = true;
         }
@@ -118,13 +124,15 @@ public class DiceManager : MonoBehaviour
         diceObject.GetComponent<Dice>().getRb().AddTorque(torque * 30);
     }
 
-    public void resetToCenter()
+    public async void resetToCenter()
     {
-        Vector3 reset = new Vector3(0, 1, -1);
+        float z = -1f;
+        float offset = 0.58f;
         foreach (Dice dice in diceList)
         {
-            dice.transform.position = reset;
-            reset.z += 1;
+            dice.transform.position = Vector3.up * 15f;
+            await dice.transform.DOMove(new Vector3(0,offset,z),1f).SetEase(Ease.OutExpo).AsyncWaitForCompletion();
+            z += 2f;
         }
     }
 

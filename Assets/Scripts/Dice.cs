@@ -13,6 +13,8 @@ public class Dice : MonoBehaviour
     
     private Rigidbody _rigidbody;
 
+    private BoxCollider _boxCollider;
+
     private float _time = .0f;
 
     private bool _isIdle = false;
@@ -33,6 +35,8 @@ public class Dice : MonoBehaviour
             throw;
         }
         _rigidbody = this.GetComponent<Rigidbody>();
+
+        _boxCollider = this.GetComponent<BoxCollider>();
 
         _visible = this.GetComponent<MeshRenderer>();
 
@@ -105,6 +109,10 @@ public class Dice : MonoBehaviour
     public Rigidbody getRb()
     {
         return _rigidbody;
+    }    
+    public BoxCollider GetCollider()
+    {
+        return _boxCollider;
     }
 
     public void setVisible(bool v)
