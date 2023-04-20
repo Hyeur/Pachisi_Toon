@@ -8,7 +8,7 @@ public class Pad : MonoBehaviour
     public Vector3 actualPos;
     public bool isGate = false;
     public bool isFree = true;
-    private Pawn _pawnCapture;
+    [SerializeField] private Pawn _pawnCapture;
 
     public string padName = "defaultPadName";
     public string padTeam;

@@ -15,6 +15,7 @@ public class Pawn : MonoBehaviour
     [SerializeField] public bool _isMoving = false;
     [SerializeField] public bool _isMoved = false;
     private Rigidbody _rigidbody;
+    private BoxCollider _boxCollider;
     [SerializeField] protected Pad currentPad;
 
     public Team Team;
@@ -51,6 +52,7 @@ public class Pawn : MonoBehaviour
         }
         try
         {
+            _boxCollider = GetComponent<BoxCollider>();
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.freezeRotation = true;
         }
@@ -85,9 +87,14 @@ public class Pawn : MonoBehaviour
 
     public void setCurrentPad(Pad pad)
     {
+        currentPad.setPawnCaptured(null);
         if (pad != null)
         {
             currentPad = pad;
+        }
+        else
+        {
+            currentPad = null;
         }
     }
     
@@ -132,23 +139,41 @@ public class Pawn : MonoBehaviour
         _isOut = currentPad ? true : false;
     }
 
-    public void recoveryToCurrentPad()
+    public async void recoveryToCurrentPad()
     {
         if (!_isReady)
         {
+            _boxCollider.enabled = false;
+            _rigidbody.useGravity = false;
             if (currentPad)
             {
-                transform.DORotate(new Vector3( 0, transform.rotation.y, 0), 1f).SetEase(Ease.InSine);
-                transform.DOJump(currentPad.actualPos, 1,1,1f).SetEase(Ease.InSine);
+                await transform.DORotate(new Vector3( 0, transform.rotation.y, 0), 1f).SetEase(Ease.InSine).AsyncWaitForCompletion();
+                await transform.DOJump(currentPad.actualPos, 1,1,1f).SetEase(Ease.InSine).AsyncWaitForCompletion();
+                _boxCollider.enabled = true;
+                _rigidbody.useGravity = true;
                 // Debug.Log($"Respawn {name} to {currentPad}");
             }
             else
             {
                 transform.rotation = Quaternion.Euler(0,0,0);
-                transform.DOMove(Team.transform.position, 1f).SetEase(Ease.InSine);
+                await transform.DOMove(Team.transform.position, 1f).SetEase(Ease.InSine).AsyncWaitForCompletion();
+                _boxCollider.enabled = true;
+                _rigidbody.useGravity = true;
                 // Debug.Log($"Respawn {name} to {Team.name}");
             }
         }
+    }
+
+    public void sentToHome()
+    {
+        _boxCollider.enabled = false; 
+        _rigidbody.useGravity = false;
+        transform.rotation = Quaternion.Euler(0,0,0);
+        transform.DOMove(Team.transform.position,.3f).SetEase(Ease.OutExpo).OnComplete(() =>
+        {
+            _boxCollider.enabled = true;
+            _rigidbody.useGravity = true;
+        });
     }
     
     

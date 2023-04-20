@@ -125,35 +125,61 @@ public class PadManager : MonoBehaviour
         }        
         loadGmap();
     }
+    
+    // public int getTheNextPadIndxOfPawn(Pawn pawn)
+    // {
+    //     
+    // }
 
-    public int getCurrentPadIndexofPawn(Pawn pawn)
+    public Pad getPadAtIndex(int index, int additionalIndex = 0)
+    {
+        index = remapTheIndx(index + additionalIndex);
+        return Lmap[index];
+    }
+
+    public int getIndexOfPad(Pad pad)
+    {
+        return Lmap.FirstOrDefault(key => key.Value == pad).Key;
+    }
+    
+    public int getIndexOfPadByPawn(Pawn pawn)
     {
         return Lmap.FirstOrDefault(key => key.Value == pawn.getCurrentPad()).Key;
     }
-    public int getTheNextPadIndxOfPawn(Pawn pawn)
-    {
-        int inx = getCurrentPadIndexofPawn(pawn) + 1;
-        if (inx > 40)
-        {
-            inx -= 40;
-        }
 
-        return inx;
+    private int remapTheIndx(int _base, int _add = 0)
+    {
+        int result = _base + _add;
+        if (result > 40)
+        {
+            result -= 40;
+        }
+        return result;
     }
 
 
     public bool anyPawnOnTheWay(Pawn pawn, int step)
     {
-        // int[] path ;
-        // for (int i = 0; i < step; i++)
-        // {
-        //     Debug.Log(getTheNextPadIndxOfPawn(pawn) + i);
-        //     path[i] = getTheNextPadIndxOfPawn(pawn) + i;
-        // }
+        Pad[] path = new Pad[step];
+        for (int i = 0; i < step; i++)
+        {
+            path[i] = (getPadAtIndex(getIndexOfPad(pawn.getCurrentPad()) + i + 1));
+        }
 
-       // return path.Any(pad => Lmap[pad].isFree == false);
-       return Lmap.Keys.Any(padIndex => Lmap[padIndex].isFree == false && padIndex > getCurrentPadIndexofPawn(pawn) &&
-                                        padIndex <= getCurrentPadIndexofPawn(pawn) + step);
+        return path.Any(pad => pad.isFree == false);
+    }
+
+    public bool isAttackableEnemyOnTheWay(Pawn pawn, int step)
+    {
+
+        var isLastPadOnTheWayFree = getPadAtIndex(getIndexOfPad(pawn.getCurrentPad()), step).isFree;
+        if (!isLastPadOnTheWayFree)
+        {
+            if (anyPawnOnTheWay(pawn, step - 1)) return false;
+            return true;
+        }
+
+        return false;
     }
     
 }

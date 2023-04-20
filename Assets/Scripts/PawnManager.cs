@@ -110,23 +110,31 @@ public class PawnManager : MonoBehaviour
     {
         if (PadManager.Instance.anyPawnOnTheWay(pawn, step))
         {
-            cannotMoveandPickAgain(pawn);
-            return;
+            if (PadManager.Instance.isAttackableEnemyOnTheWay(pawn, step))
+            {
+                var currentPad = PadManager.Instance.getIndexOfPadByPawn(pawn);
+                var targetPawn = PadManager.Instance.getPadAtIndex(currentPad,step).getPawnCaptured();
+                kickThePawn(targetPawn);
+            }
+            else
+            {
+                cannotMoveandPickAgain(pawn);
+                return;
+            }
         }
         if (pawn._isFinish || pawn._isMoving && !pawn._isOut && !pawn._isReady && pawn._isMoved)
         {
             cannotMoveandPickAgain(pawn);
             return;
         };
+        
         DiceManager.Instance.resetToCenter();
         var tasks = new Task[step];
         for (int i = 0; i < step; i++)
         {
-            
-            int destinationIndex = PadManager.Instance.getTheNextPadIndxOfPawn(pawn);
-            Pad destinationPad = PadManager.Instance.Lmap[destinationIndex];
+            int currentPadIndex = PadManager.Instance.getIndexOfPadByPawn(pawn);
+            Pad destinationPad = PadManager.Instance.getPadAtIndex(currentPadIndex, 1);
             //set new position
-            pawn.getCurrentPad().setPawnCaptured(null);
             pawn.setCurrentPad(destinationPad);
 
             //animation
@@ -135,6 +143,8 @@ public class PawnManager : MonoBehaviour
             tasks[i] = pawn.transform.DOJump(destinationPad.actualPos, 1, 1, movingTimeSpent).AsyncWaitForCompletion();
 
             await Task.WhenAll(tasks[i]);
+            
+
             
             rotateIfNeed(pawn);
             pawn._isMoving = false;
@@ -217,7 +227,6 @@ public class PawnManager : MonoBehaviour
             
             DiceManager.Instance.resetToCenter();
             Pad destinationPad = GPads[firstEmptyInx];
-            pawn.getCurrentPad().setPawnCaptured(null);
             pawn.setCurrentPad(destinationPad);
             pawn._isMoving = true;
             await pawn.transform.DOJump(destinationPad.actualPos, 3, 1, 1.5f).SetEase(Ease.InSine).OnComplete(() =>
@@ -236,10 +245,8 @@ public class PawnManager : MonoBehaviour
     {
         if (pawn._isReady)
         {
-            int currentIdx = PadManager.Instance.getCurrentPadIndexofPawn(pawn);
-            int nextIdx = PadManager.Instance.getTheNextPadIndxOfPawn(pawn);
-            pawn.transform.DOLookAt(2 * pawn.transform.position - PadManager.Instance.Lmap[nextIdx].transform.position, .1f);
-
+            var currentPadIndx = PadManager.Instance.getIndexOfPad(pawn.getCurrentPad());
+            pawn.transform.DOLookAt(2 * pawn.transform.position - PadManager.Instance.getPadAtIndex(currentPadIndx,1).transform.position, .1f);
         }
     }
 
@@ -271,5 +278,11 @@ public class PawnManager : MonoBehaviour
             Debug.Log("Pawning Ended");
             GameManager.Instance.updateGameState(GameManager.GameState.SwitchTeam);
         }
+    }
+
+    private void kickThePawn(Pawn kickedPawn)
+    {
+        kickedPawn.setCurrentPad(null);
+        kickedPawn.sentToHome();
     }
 }

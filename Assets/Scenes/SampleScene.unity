@@ -275,6 +275,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -391,6 +392,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -422,6 +424,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -589,6 +592,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -762,6 +766,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -793,6 +798,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -873,6 +879,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -904,6 +911,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -1203,6 +1211,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -1281,6 +1290,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -1312,6 +1322,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -1430,6 +1441,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -1531,6 +1543,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -1562,6 +1575,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -1765,6 +1779,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -1987,13 +2002,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 15267922}
-        m_TargetAssemblyTypeName: PawnManager, Assembly-CSharp
-        m_MethodName: rotateIfNeed
-        m_Mode: 2
+      - m_Target: {fileID: 2132367261}
+        m_TargetAssemblyTypeName: Pawn, Assembly-CSharp
+        m_MethodName: sentToHome
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2031028937}
-          m_ObjectArgumentAssemblyTypeName: Pawn, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2065,6 +2080,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -2110,6 +2126,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -2141,6 +2158,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -2406,6 +2424,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -2437,6 +2456,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -2586,6 +2606,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -2617,6 +2638,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -2648,6 +2670,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -2818,6 +2841,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -2947,6 +2971,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -2978,6 +3003,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -3009,6 +3035,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -3087,6 +3114,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -3281,6 +3309,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -3339,6 +3368,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -3800,6 +3830,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -3926,6 +3957,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4004,6 +4036,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4035,6 +4068,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4180,6 +4214,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4211,6 +4246,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4242,6 +4278,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4273,6 +4310,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4304,6 +4342,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4335,6 +4374,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4413,6 +4453,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4501,6 +4542,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4532,6 +4574,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4563,6 +4606,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4647,6 +4691,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -4993,6 +5038,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5038,6 +5084,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5069,6 +5116,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5206,6 +5254,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5372,6 +5421,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5500,6 +5550,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5531,6 +5582,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5548,7 +5600,7 @@ PrefabInstance:
     - target: {fileID: 6979111177222467749, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: currentPad
       value: 
-      objectReference: {fileID: 1703174552}
+      objectReference: {fileID: 224639165}
     - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -5595,7 +5647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6979111177222467772, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_Name
-      value: default
+      value: 1a
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
@@ -5604,17 +5656,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
   m_PrefabInstance: {fileID: 2031028934}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2031028937 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6979111177222467749, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
-  m_PrefabInstance: {fileID: 2031028934}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 081b8442ea230fd4e9146a5007b6acc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &2036682413
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5642,22 +5683,22 @@ PrefabInstance:
     - target: {fileID: 6979111177222467749, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: currentPad
       value: 
-      objectReference: {fileID: 1166689408}
+      objectReference: {fileID: 1732965589}
     - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 9.03
       objectReference: {fileID: 0}
     - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.8
+      value: -8.05
       objectReference: {fileID: 0}
     - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 9.02
       objectReference: {fileID: 0}
     - target: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5689,7 +5730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6979111177222467772, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
       propertyPath: m_Name
-      value: default (2)
+      value: 1b
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
@@ -5721,6 +5762,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5752,6 +5794,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5783,6 +5826,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5814,6 +5858,7 @@ MonoBehaviour:
   actualPos: {x: 0, y: 0, z: 0}
   isGate: 0
   isFree: 1
+  _pawnCapture: {fileID: 0}
   padName: defaultPadName
   padTeam: 
   outline: {fileID: 0}
@@ -5822,6 +5867,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6979111177222467771, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
   m_PrefabInstance: {fileID: 2045836743}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2132367261 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6979111177222467749, guid: 5356280e5611ac94696f4fd372ae4066, type: 3}
+  m_PrefabInstance: {fileID: 2045836743}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081b8442ea230fd4e9146a5007b6acc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &20151407038197475
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10973,7 +11029,7 @@ GameObject:
   - component: {fileID: 6979111178445849065}
   - component: {fileID: 5977523912788298191}
   m_Layer: 0
-  m_Name: default (1)
+  m_Name: 2b
   m_TagString: Pawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11187,7 +11243,7 @@ GameObject:
   - component: {fileID: 6979111179061886221}
   - component: {fileID: 5977523913271260459}
   m_Layer: 0
-  m_Name: default
+  m_Name: 2a
   m_TagString: Pawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
