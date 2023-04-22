@@ -32,29 +32,18 @@ public class Pad : MonoBehaviour
         setPadName(gameObject.name);
         padTeam = transform.parent.name.Substring(0, 5);
         
-        updateFreeStatus();
     }
     
-    private void Update()
+    void Update()
     {
-        updateFreeStatus();
+
     }
 
-    private void updateFreeStatus()
+    private void updateFreeStatus(bool _isFree)
     {
-        if (_pawnCapture)
+        if (isFree != _isFree)
         {
-            if (isFree)
-            {
-                isFree = false;
-            }
-        }
-        else
-        {
-            if (!isFree)
-            {
-                isFree = true;
-            }
+            isFree = _isFree;
         }
     }
 
@@ -76,9 +65,18 @@ public class Pad : MonoBehaviour
         }
     }
 
-    public void setPawnCaptured(Pawn pawn = null)
+    public void setPawnCaptured(Pawn pawn)
     {
-        _pawnCapture = pawn;
+        if (pawn != null)
+        {
+            _pawnCapture = pawn;
+            updateFreeStatus(false);
+        }
+        else
+        {
+            _pawnCapture = null;
+            updateFreeStatus(true);
+        }
     }
 
     public Pawn getPawnCaptured()

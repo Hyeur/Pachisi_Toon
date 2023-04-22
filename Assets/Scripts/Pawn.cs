@@ -65,7 +65,12 @@ public class Pawn : MonoBehaviour
 
         Team = GetComponentInParent<Team>();
 
-        recoveryToCurrentPad(.5f);
+        if (Team && Team.pawns.Count < 4)
+        {
+            Team.pawns.Add(this);
+        }
+
+         recoveryToCurrentPad(.5f);
 
         if (currentPad)
         {
@@ -74,7 +79,7 @@ public class Pawn : MonoBehaviour
 
     }
     
-    void FixedUpdate()
+    void Update()
     {
 
         updateOutStatus();
@@ -98,6 +103,7 @@ public class Pawn : MonoBehaviour
         if (destinationPad)
         {
             currentPad = destinationPad;
+            currentPad.setPawnCaptured(this);
         }
         else
         {
@@ -149,7 +155,7 @@ public class Pawn : MonoBehaviour
     public async Task recoveryToCurrentPad(float duration)
     {
         
-        if (!_isReady)
+        if (!_isReady && Team)
         {
             _boxCollider.enabled = false;
             _rigidbody.useGravity = false;

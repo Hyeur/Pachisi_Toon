@@ -49,12 +49,14 @@ public class PawnManager : MonoBehaviour
     {
 
         _listTeam = TeamManager.Instance.TEAMS;
-        
-        loadPawn();
+
+        if (_listTeam.Count > 0)
+        {
+            loadPawn();
+        }
     }
     void Update()
     {
-        
     }
 
     public void loadPawn()
@@ -107,6 +109,14 @@ public class PawnManager : MonoBehaviour
         else
         {
             await checkOut(pawn);
+        }
+
+        if (pawn._isMoved)
+        {
+            if (DiceManager.Instance.allOneOrSix())
+            {
+                GameManager.Instance.updateGameState(GameManager.GameState.RollTheDice);
+            }
         }
     }
     private async Task movePawnWithStep(Pawn pawn, int step)
@@ -246,12 +256,20 @@ public class PawnManager : MonoBehaviour
 
     private async Task checkOut(Pawn pawn)
     {
-        var _twoResult = DiceManager.Instance.getTwoResults();
-        if (_twoResult.Any(result => result.Equals(1) || result.Equals(6)))
+        if (DiceManager.Instance.anyOneOrSix())
         {
-             moveToSpawn(pawn);
+             await moveToSpawn(pawn);
              rotateIfNeed(pawn);
-             endTurn(pawn._isMoved);
+             Debug.Log(pawn.Team.getNumsOutPawn());
+             if (DiceManager.Instance.allOneOrSix())
+             {
+                 GameManager.Instance.updateGameState(GameManager.GameState.RollTheDice);
+             }
+             else
+             {
+                 endTurn(pawn._isMoved);
+                 
+             }
         }
         else
         {
@@ -304,13 +322,13 @@ public class PawnManager : MonoBehaviour
         kickedPawn.sentToHome(1f);
     }
 
-    private void moveToSpawn(Pawn pawn)
+    private async Task moveToSpawn(Pawn pawn)
     {
         var startPad = PadManager.Instance.getSpawnPadByTeam(pawn.Team);
         if (startPad)
         {
             pawn.setCurrentPad(startPad);
-            pawn.recoveryToCurrentPad(.5f);
+            pawn.recoveryToCurrentPad(.3f);
             pawn._isMoved = true;
         }
     }

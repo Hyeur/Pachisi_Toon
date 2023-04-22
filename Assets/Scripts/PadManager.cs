@@ -180,12 +180,11 @@ public class PadManager : MonoBehaviour
 
     public bool isAttackableEnemyOnTheWay(Pawn pawn, int step)
     {
-
         var isLastPadOnTheWayFree = getPadAtIndex(getIndexOfPad(pawn.getCurrentPad()), step).isFree;
         if (!isLastPadOnTheWayFree)
         {
-            var isEnemy = (getPadAtIndex(getIndexOfPad(pawn.getCurrentPad()), step).getPawnCaptured().Team !=
-                           pawn.Team);
+            Pawn targetPawn = getPadAtIndex(getIndexOfPad(pawn.getCurrentPad()), step).getPawnCaptured();
+            var isEnemy = targetPawn.Team != pawn.Team;
             if (anyPawnOnTheWay(pawn, step - 1)) return false;
             if (isEnemy)
             {

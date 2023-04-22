@@ -9,7 +9,7 @@ public class Team : MonoBehaviour
     public string teamName = "TeamName";
     public List<Pawn> pawns;
     [SerializeField] private bool isFinish = false;
-    void Start()
+    void Awake()
     {
         teamName = transform.name;
 

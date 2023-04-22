@@ -688,6 +688,10 @@ MonoBehaviour:
   _MenuCanvas: {fileID: 600865400}
   _loaderCanvas: {fileID: 1517433671}
   _progressBar: {fileID: 1382592402}
+  teams:
+  - Team1
+  - Team2
+  - Team3
 --- !u!1 &941311213
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class SessionManager : MonoBehaviour
     [SerializeField] protected GameObject _loaderCanvas;
     [SerializeField] protected Image _progressBar;
 
+    public List<string> teams;
     private float _target;
     
     void Awake()

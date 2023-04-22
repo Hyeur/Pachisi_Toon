@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -29,21 +30,27 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        updateListTeamUnFinish();
-        currentTeam = listTeam[0];
+        
     }
     
     void Update()
     {
-        
+        if (listTeam.Count < 1)
+        {
+            updateListTeamUnFinish();
+        }
     }
 
-    public void updateListTeamUnFinish()
+    public async void updateListTeamUnFinish()
     {
         listTeam = TeamManager.Instance.getUnFinishTeams();
+        if (!currentTeam && listTeam.Count > 0)
+        {
+            currentTeam = listTeam[0];
+        }
     }
 
-    public void updateGameState(GameState newState)
+    public void updateGameState(GameState newState,Team switchedTeam = null)
     {
         state = newState;
         OnGameStateChanged?.Invoke(newState);
@@ -71,7 +78,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.SwitchTeam:
                 int currentTeamInx = listTeam.IndexOf(currentTeam);
-                if (currentTeamInx == listTeam.Count() - 1)
+                if (currentTeam == listTeam.Last())
                 {
                     currentTeam = listTeam[0];
                 }
@@ -80,6 +87,11 @@ public class GameManager : MonoBehaviour
                     currentTeam = listTeam[currentTeamInx + 1];
                 }
                 updateListTeamUnFinish();
+                if (listTeam.Contains(switchedTeam) && switchedTeam)
+                {
+                    currentTeam = switchedTeam;
+                }
+                
                 updateGameState(GameState.RollTheDice);
                 break;
             default:

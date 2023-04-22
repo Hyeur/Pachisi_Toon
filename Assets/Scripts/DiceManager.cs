@@ -43,7 +43,7 @@ public class DiceManager : MonoBehaviour
     
     void Update()
     {
-        r.text = "Dice: " + totalResult;
+        r.text = "Dice: " + totalResult + " " + GameManager.Instance.currentTeam.teamName;
         updateResult();
         endTurnTracking();
     }
@@ -151,5 +151,16 @@ public class DiceManager : MonoBehaviour
     public List<int> getTwoResults()
     {
         return twoResult;
+    }
+
+    public bool anyOneOrSix()
+    {
+        if (twoResult.Any(result => result.Equals(1) || result.Equals(6))) return true;
+        return false;
+    }
+    public bool allOneOrSix()
+    {
+        if (twoResult.All(result => result.Equals(1) || result.Equals(6))) return true;
+        return false;
     }
 }

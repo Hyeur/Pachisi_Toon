@@ -13,6 +13,7 @@ public class TeamManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        TEAMS = GetComponentsInChildren<Team>().ToList();
         GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
     }
 
@@ -25,11 +26,7 @@ public class TeamManager : MonoBehaviour
     {
         GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
     }
-
-    void Start()
-    {
-        TEAMS = GetComponentsInChildren<Team>().ToList();
-    }
+    
 
     // Update is called once per frame
     void Update()
