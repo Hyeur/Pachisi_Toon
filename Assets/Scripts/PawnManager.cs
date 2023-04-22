@@ -69,41 +69,44 @@ public class PawnManager : MonoBehaviour
         allPawns.AddRange(team4Pawn);
     }
 
-    public void resetAllPawn()
+    public async void resetAllPawn()
     {
-        StartCoroutine(resetAllPawnByTeam(team1Pawn));
-        StartCoroutine(resetAllPawnByTeam(team2Pawn));
-        StartCoroutine(resetAllPawnByTeam(team3Pawn));
-        StartCoroutine(resetAllPawnByTeam(team4Pawn));
+        await resetAllPawnByTeam(team1Pawn);
+        await resetAllPawnByTeam(team2Pawn);
+        await resetAllPawnByTeam(team3Pawn);
+        await resetAllPawnByTeam(team4Pawn);
 
     }
-    private IEnumerator resetAllPawnByTeam(List<Pawn> listPawn)
+    private async Task resetAllPawnByTeam(List<Pawn> listPawn)
     {
-        yield return new WaitForSeconds(.5f);
         foreach (Pawn pawn in listPawn)
         {
-            if (!pawn._isReady)
-            {
-                pawn.recoveryToCurrentPad();
-                rotateIfNeed(pawn);
-            }
-            yield return new WaitForSeconds(1f);
+            await pawn.recoveryToCurrentPad(.5f);
         }
     }
 
-    public async void movePawn(Pawn pawn, int step)
+    public async void pawning(Pawn pawn, int step)
     {
         if (!_active) return;
+        
         pawn._isMoved = false;
-        if (canCageEntry(pawn))
+
+        if (pawn._isOut)
         {
-            await checkGatePoint(pawn);
+            if (canCageEntry(pawn))
+            {
+                await checkGatePoint(pawn);
+            }
+        
+        
+            if (!pawn._isMoved)
+            {
+                await movePawnWithStep(pawn,step);
+            }
         }
-        
-        
-        if (!pawn._isMoved)
+        else
         {
-            await movePawnWithStep(pawn,step);
+            await checkOut(pawn);
         }
     }
     private async Task movePawnWithStep(Pawn pawn, int step)
@@ -241,6 +244,21 @@ public class PawnManager : MonoBehaviour
         }
     }
 
+    private async Task checkOut(Pawn pawn)
+    {
+        var _twoResult = DiceManager.Instance.getTwoResults();
+        if (_twoResult.Any(result => result.Equals(1) || result.Equals(6)))
+        {
+             moveToSpawn(pawn);
+             rotateIfNeed(pawn);
+             endTurn(pawn._isMoved);
+        }
+        else
+        {
+            cannotMoveandPickAgain(pawn);
+        }
+    }
+
     public void rotateIfNeed(Pawn pawn)
     {
         if (pawn._isReady)
@@ -283,6 +301,17 @@ public class PawnManager : MonoBehaviour
     private void kickThePawn(Pawn kickedPawn)
     {
         kickedPawn.setCurrentPad(null);
-        kickedPawn.sentToHome();
+        kickedPawn.sentToHome(1f);
+    }
+
+    private void moveToSpawn(Pawn pawn)
+    {
+        var startPad = PadManager.Instance.getSpawnPadByTeam(pawn.Team);
+        if (startPad)
+        {
+            pawn.setCurrentPad(startPad);
+            pawn.recoveryToCurrentPad(.5f);
+            pawn._isMoved = true;
+        }
     }
 }

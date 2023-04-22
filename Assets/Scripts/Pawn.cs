@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -64,16 +65,18 @@ public class Pawn : MonoBehaviour
 
         Team = GetComponentInParent<Team>();
 
-    }
-    
-    void FixedUpdate()
-    {
+        recoveryToCurrentPad(.5f);
 
         if (currentPad)
         {
             currentPad.setPawnCaptured(this);
         }
-        
+
+    }
+    
+    void FixedUpdate()
+    {
+
         updateOutStatus();
 
         updateReadyStatus(currentPad);
@@ -85,12 +88,16 @@ public class Pawn : MonoBehaviour
         return _rigidbody;
     }
 
-    public void setCurrentPad(Pad pad)
+    public void setCurrentPad(Pad destinationPad = null)
     {
-        currentPad.setPawnCaptured(null);
-        if (pad != null)
+        if (currentPad)
         {
-            currentPad = pad;
+            currentPad.setPawnCaptured(null);
+        }
+        
+        if (destinationPad)
+        {
+            currentPad = destinationPad;
         }
         else
         {
@@ -139,8 +146,9 @@ public class Pawn : MonoBehaviour
         _isOut = currentPad ? true : false;
     }
 
-    public async void recoveryToCurrentPad()
+    public async Task recoveryToCurrentPad(float duration)
     {
+        
         if (!_isReady)
         {
             _boxCollider.enabled = false;
@@ -148,32 +156,41 @@ public class Pawn : MonoBehaviour
             if (currentPad)
             {
                 await transform.DORotate(new Vector3( 0, transform.rotation.y, 0), 1f).SetEase(Ease.InSine).AsyncWaitForCompletion();
-                await transform.DOJump(currentPad.actualPos, 1,1,1f).SetEase(Ease.InSine).AsyncWaitForCompletion();
+                await transform.DOJump(currentPad.actualPos, 1,1,duration).SetEase(Ease.InSine).AsyncWaitForCompletion();
                 _boxCollider.enabled = true;
                 _rigidbody.useGravity = true;
                 // Debug.Log($"Respawn {name} to {currentPad}");
             }
             else
             {
-                transform.rotation = Quaternion.Euler(0,0,0);
-                await transform.DOMove(Team.transform.position, 1f).SetEase(Ease.InSine).AsyncWaitForCompletion();
-                _boxCollider.enabled = true;
-                _rigidbody.useGravity = true;
+                await sentToHome(duration);
                 // Debug.Log($"Respawn {name} to {Team.name}");
             }
         }
     }
 
-    public void sentToHome()
+    public async Task sentToHome(float duration)
     {
-        _boxCollider.enabled = false; 
-        _rigidbody.useGravity = false;
-        transform.rotation = Quaternion.Euler(0,0,0);
-        transform.DOMove(Team.transform.position,.3f).SetEase(Ease.OutExpo).OnComplete(() =>
+        var home = Team.transform.position;
+        home = new Vector3(Mathf.Sign(home.x), Mathf.Sign(home.y),
+            Mathf.Sign(home.z));
+        home = Vector3.Scale(new Vector3(6, 1, 6), home);
+        
+        if (Vector3.Distance(home,transform.position) < 4.5f)
         {
             _boxCollider.enabled = true;
             _rigidbody.useGravity = true;
-        });
+            return;
+        };
+
+        _boxCollider.enabled = false; 
+        _rigidbody.useGravity = false;
+        transform.rotation = Quaternion.Euler(0,0,0);
+        await transform.DOMove(home,duration).SetEase(Ease.InOutExpo).OnComplete(() =>
+        {
+            _boxCollider.enabled = true;
+            _rigidbody.useGravity = true;
+        }).AsyncWaitForCompletion();
     }
     
     

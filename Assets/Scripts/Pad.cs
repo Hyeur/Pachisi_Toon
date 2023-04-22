@@ -31,8 +31,10 @@ public class Pad : MonoBehaviour
         actualPos = transform.position;
         setPadName(gameObject.name);
         padTeam = transform.parent.name.Substring(0, 5);
+        
+        updateFreeStatus();
     }
-
+    
     private void Update()
     {
         updateFreeStatus();

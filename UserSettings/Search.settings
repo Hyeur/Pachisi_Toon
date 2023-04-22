@@ -7,9 +7,9 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.DA949528" = "sky"
+	"last_search.DA949528" = "sprite"
 	"OpenInspectorPreview.DA949528" = "0"
-	"currentGroup.DA949528" = "menu"
+	"currentGroup.DA949528" = "settings"
 }
 providers = {
 	adb = {

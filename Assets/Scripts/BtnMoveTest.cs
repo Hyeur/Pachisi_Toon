@@ -9,6 +9,6 @@ public class BtnMoveTest : BaseButton
     protected override void OnClick()
     {
         int diceResult = DiceManager.Instance.totalResult;
-        PawnManager.Instance.movePawn(pawn,diceResult);
+        PawnManager.Instance.pawning(pawn,diceResult);
     }
 }

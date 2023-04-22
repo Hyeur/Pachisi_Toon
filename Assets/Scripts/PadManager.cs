@@ -15,7 +15,7 @@ public class PadManager : MonoBehaviour
     
     [SerializeField] protected List<Pad> team1LPads;
     
-    [SerializeField] protected List<Pad> team2LPads;
+    [SerializeField] private List<Pad> team2LPads;
                                       
     [SerializeField] protected List<Pad> team3LPads; 
                                       
@@ -39,6 +39,7 @@ public class PadManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        
     }
 
     void Start()
@@ -49,7 +50,6 @@ public class PadManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void createMainPath(List<Pad> listLPads)
@@ -69,7 +69,6 @@ public class PadManager : MonoBehaviour
     }
     private void createGoalPath(Dictionary<int, Pad> gmap, List<Pad> listGPads)
     {
-        listGPads = listGPads.OrderBy(o => int.Parse(o.padName.Trim('G'))).ToList();
         for (int i = 0; i < listGPads.Count; i++)
         {
             gmap.Add(i+1, listGPads[i]);
@@ -81,8 +80,8 @@ public class PadManager : MonoBehaviour
         var TEAMS = new Dictionary<GameObject,List<List<Pad>>>()
         {
             {t1,new List<List<Pad>>(){team1LPads,team1GPads}},
-            {t2,new List<List<Pad>>(){team2LPads,team3GPads}},
-            {t3,new List<List<Pad>>(){team3LPads,team2GPads}},
+            {t2,new List<List<Pad>>(){team2LPads,team2GPads}},
+            {t3,new List<List<Pad>>(){team3LPads,team3GPads}},
             {t4,new List<List<Pad>>(){team4LPads,team4GPads}}
         };
 
@@ -111,13 +110,23 @@ public class PadManager : MonoBehaviour
                 {
                     team.Value[1].Add(pad);
                 }
-            }
-            team.Value[0] = team.Value[0].OrderBy(o => int.Parse(o.padName.Trim('L'))).ToList();
-            team.Value[1] = team.Value[1].OrderBy(o => int.Parse(o.padName.Trim('G'))).ToList();
-            
-            
-            _mainPath.AddRange(team.Value[0]);
+            } 
         }
+        
+        team1LPads = team1LPads.OrderBy(o => int.Parse(o.padName.Trim('L'))).ToList();
+        team2LPads = team2LPads.OrderBy(o => int.Parse(o.padName.Trim('L'))).ToList();
+        team3LPads = team3LPads.OrderBy(o => int.Parse(o.padName.Trim('L'))).ToList();
+        team4LPads = team4LPads.OrderBy(o => int.Parse(o.padName.Trim('L'))).ToList();
+        
+        team1GPads = team1GPads.OrderBy(o => int.Parse(o.padName.Trim('G'))).ToList();
+        team2GPads = team2GPads.OrderBy(o => int.Parse(o.padName.Trim('G'))).ToList();
+        team3GPads = team3GPads.OrderBy(o => int.Parse(o.padName.Trim('G'))).ToList();
+        team4GPads = team4GPads.OrderBy(o => int.Parse(o.padName.Trim('G'))).ToList();
+        
+        _mainPath.AddRange(team1LPads);
+        _mainPath.AddRange(team3LPads);
+        _mainPath.AddRange(team2LPads);
+        _mainPath.AddRange(team4LPads);
 
         if (_mainPath.Count > 0)
         {
@@ -175,11 +184,36 @@ public class PadManager : MonoBehaviour
         var isLastPadOnTheWayFree = getPadAtIndex(getIndexOfPad(pawn.getCurrentPad()), step).isFree;
         if (!isLastPadOnTheWayFree)
         {
+            var isEnemy = (getPadAtIndex(getIndexOfPad(pawn.getCurrentPad()), step).getPawnCaptured().Team !=
+                           pawn.Team);
             if (anyPawnOnTheWay(pawn, step - 1)) return false;
-            return true;
+            if (isEnemy)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-
         return false;
     }
-    
+
+    public Pad getSpawnPadByTeam(Team team)
+    {
+        switch (team.teamName)
+        {
+            case "Team1":
+                return team1LPads[1];
+            case "Team2":
+                return team2LPads[1];
+            case "Team3":
+                return team3LPads[1];
+            case "Team4":
+                return team4LPads[1];
+            default:
+                Debug.Log("Cant find the start pad");
+                return Lmap[0];
+        }
+    }
 }
