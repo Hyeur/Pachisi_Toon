@@ -6,7 +6,10 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] protected GameObject pawnPrefab;
+    [SerializeField] protected GameObject team1pawnPrefab;
+    [SerializeField] protected GameObject team2pawnPrefab;
+    [SerializeField] protected GameObject team3pawnPrefab;
+    [SerializeField] protected GameObject team4pawnPrefab;
     public List<Team> playTeam;
     void Awake()
     {
@@ -36,9 +39,33 @@ public class Spawner : MonoBehaviour
 
     public void initPawnsForTeams(List<Team> joinedTeam,int pawnAmount)
     {
+        GameObject pawnPrefab;
         foreach (var team in joinedTeam)
         {
-            GameObject[] myPawns = instantiatePrefabs(pawnPrefab,team.transform, pawnAmount);
+            switch (team.teamName)
+            {
+                case "Team1":
+                    pawnPrefab = team1pawnPrefab;
+                    break;
+                case "Team2":
+                    pawnPrefab = team2pawnPrefab;
+                    break;
+                case "Team3":
+                    pawnPrefab = team3pawnPrefab;
+                    break;
+                case "Team4":
+                    pawnPrefab = team4pawnPrefab;
+                    break;
+                default:
+                    pawnPrefab = null;
+                    Debug.Log("Cant fetch prefab of " + team.teamName);
+                    break;
+            }
+
+            if (pawnPrefab)
+            {
+                GameObject[] myPawns = instantiatePrefabs(pawnPrefab,team.transform, pawnAmount);
+            }
         }
     }
 

@@ -100,4 +100,9 @@ public class GameManager : MonoBehaviour
         
         
     }
+
+    public void skipTurn()
+    {
+        updateGameState(GameState.SwitchTeam);
+    }
 }

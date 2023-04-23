@@ -31,7 +31,7 @@ public class PadManager : MonoBehaviour
 
     [SerializeField] protected List<Pad> _mainPath;
 
-    public Dictionary<int, Pad> Lmap = new Dictionary<int, Pad>();
+    private Dictionary<int, Pad> Lmap = new Dictionary<int, Pad>();
     public Dictionary<int, Pad> GmapTeam1 = new Dictionary<int, Pad>();
     public Dictionary<int, Pad> GmapTeam2 = new Dictionary<int, Pad>();
     public Dictionary<int, Pad> GmapTeam3 = new Dictionary<int, Pad>();

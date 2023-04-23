@@ -1,0 +1,23 @@
+.button {
+    background-image: url('project://database/Assets/UI/LiteUI-Fantasy/Exported/Big%20Wood%201%20Btn.png?fileID=2800000&guid=54323ee182f261748b4f06ad21cfbfc4&type=3#Big Wood 1 Btn');
+    -unity-font: url('project://database/Assets/Font/Fibberish%20v1.0/fibberish.ttf?fileID=12800000&guid=5a31effe044eb244680b243cc9e33841&type=3#fibberish');
+    -unity-font-definition: none;
+    font-size: 32px;
+    -unity-text-align: middle-center;
+    word-spacing: -18px;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0;
+    padding-left: 11px;
+    padding-right: 11px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.Logo {
+    opacity: 1;
+}

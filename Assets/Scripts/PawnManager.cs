@@ -91,9 +91,9 @@ public class PawnManager : MonoBehaviour
     {
         if (!_active) return;
         
-        pawn._isMoved = false;
+        pawn.isMoved = false;
 
-        if (pawn._isOut)
+        if (pawn.isOut)
         {
             if (canCageEntry(pawn))
             {
@@ -101,7 +101,7 @@ public class PawnManager : MonoBehaviour
             }
         
         
-            if (!pawn._isMoved)
+            if (!pawn.isMoved)
             {
                 await movePawnWithStep(pawn,step);
             }
@@ -111,7 +111,7 @@ public class PawnManager : MonoBehaviour
             await checkOut(pawn);
         }
 
-        if (pawn._isMoved)
+        if (pawn.isMoved)
         {
             if (DiceManager.Instance.allOneOrSix())
             {
@@ -135,7 +135,7 @@ public class PawnManager : MonoBehaviour
                 return;
             }
         }
-        if (pawn._isFinish || pawn._isMoving && !pawn._isOut && !pawn._isReady && pawn._isMoved)
+        if (pawn.isFinish || pawn.isMoving && !pawn.isOut && !pawn.isReady && pawn.isMoved)
         {
             cannotMoveandPickAgain(pawn);
             return;
@@ -151,7 +151,7 @@ public class PawnManager : MonoBehaviour
             pawn.setCurrentPad(destinationPad);
 
             //animation
-            pawn._isMoving = true;
+            pawn.isMoving = true;
 
             tasks[i] = pawn.transform.DOJump(destinationPad.actualPos, 1, 1, movingTimeSpent).AsyncWaitForCompletion();
 
@@ -160,10 +160,10 @@ public class PawnManager : MonoBehaviour
 
             
             rotateIfNeed(pawn);
-            pawn._isMoving = false;
+            pawn.isMoving = false;
         }
-        pawn._isMoved = true;
-        endTurn(pawn._isMoved);
+        pawn.isMoved = true;
+        endTurn(pawn.isMoved);
     }
 
     private async Task checkGatePoint(Pawn pawn)
@@ -191,7 +191,7 @@ public class PawnManager : MonoBehaviour
         
         int firstEmptyInx = 0;
 
-        if (pawn._isFinish)
+        if (pawn.isFinish)
         {
             List<int> twoResult = DiceManager.Instance.getTwoResults().OrderBy(x => x).ToList();
             foreach (var item in GPads)
@@ -235,20 +235,20 @@ public class PawnManager : MonoBehaviour
             }
         }
         
-        if (!pawn._isMoving && pawn._isOut && pawn._isReady && firstEmptyInx > 0 && !pawn._isMoved)
+        if (!pawn.isMoving && pawn.isOut && pawn.isReady && firstEmptyInx > 0 && !pawn.isMoved)
         {
             
             DiceManager.Instance.resetToCenter();
             Pad destinationPad = GPads[firstEmptyInx];
             pawn.setCurrentPad(destinationPad);
-            pawn._isMoving = true;
+            pawn.isMoving = true;
             await pawn.transform.DOJump(destinationPad.actualPos, 3, 1, 1.5f).SetEase(Ease.InSine).OnComplete(() =>
             {
                 rotateIfNeed(pawn);
-                pawn._isMoving = false;
-                pawn._isMoved = true;
-                pawn._isFinish = true;
-                endTurn(pawn._isMoved);
+                pawn.isMoving = false;
+                pawn.isMoved = true;
+                pawn.isFinish = true;
+                endTurn(pawn.isMoved);
             }).AsyncWaitForCompletion();
             
         }
@@ -258,17 +258,28 @@ public class PawnManager : MonoBehaviour
     {
         if (DiceManager.Instance.anyOneOrSix())
         {
-             await moveToSpawn(pawn);
+            var startPad = PadManager.Instance.getSpawnPadByTeam(pawn.Team);
+            if (startPad && !startPad.isFree)
+            {
+                if (startPad.getPawnCaptured().Team != pawn.Team)
+                {
+                    kickThePawn(startPad.getPawnCaptured());
+                }
+                else
+                {
+                    cannotMoveandPickAgain(pawn);
+                    return;
+                }
+            }
+            await moveToSpawn(pawn);
              rotateIfNeed(pawn);
-             Debug.Log(pawn.Team.getNumsOutPawn());
              if (DiceManager.Instance.allOneOrSix())
              {
                  GameManager.Instance.updateGameState(GameManager.GameState.RollTheDice);
              }
              else
              {
-                 endTurn(pawn._isMoved);
-                 
+                 endTurn(pawn.isMoved);
              }
         }
         else
@@ -279,7 +290,7 @@ public class PawnManager : MonoBehaviour
 
     public void rotateIfNeed(Pawn pawn)
     {
-        if (pawn._isReady)
+        if (pawn.isReady)
         {
             var currentPadIndx = PadManager.Instance.getIndexOfPad(pawn.getCurrentPad());
             pawn.transform.DOLookAt(2 * pawn.transform.position - PadManager.Instance.getPadAtIndex(currentPadIndx,1).transform.position, .1f);
@@ -295,7 +306,7 @@ public class PawnManager : MonoBehaviour
 
     private bool canCageEntry(Pawn pawn)
     {
-        if ((pawn.getCurrentPad().isGate || pawn._isFinish) && pawn.getCurrentPad().padTeam.Contains(pawn.Team.teamName))
+        if ((pawn.getCurrentPad().isGate || pawn.isFinish) && pawn.getCurrentPad().padTeam.Contains(pawn.Team.teamName))
         {
             return true;
         }
@@ -329,7 +340,7 @@ public class PawnManager : MonoBehaviour
         {
             pawn.setCurrentPad(startPad);
             pawn.recoveryToCurrentPad(.3f);
-            pawn._isMoved = true;
+            pawn.isMoved = true;
         }
     }
 }

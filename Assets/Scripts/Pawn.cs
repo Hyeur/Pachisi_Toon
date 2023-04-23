@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Pawn : MonoBehaviour
 {
-    [SerializeField] public bool _isOut = false;
+    [SerializeField] public bool isOut = false;
     
-    [SerializeField] public bool _isReady;
-    [SerializeField] public bool _isFinish = false;
-    [SerializeField] public bool _isMoving = false;
-    [SerializeField] public bool _isMoved = false;
+    public bool isReady;
+    public bool isFinish = false;
+    public bool isMoving = false;
+    public bool isMoved = false;
     private Rigidbody _rigidbody;
     private BoxCollider _boxCollider;
     [SerializeField] protected Pad currentPad;
@@ -40,8 +41,13 @@ public class Pawn : MonoBehaviour
 
     void Start()
     {
-        _isOut = false;
-        _isReady = false;
+        if (!transform.CompareTag("Pawn"))
+        {
+            transform.tag = "Pawn";
+        }
+        
+        isOut = false;
+        isReady = false;
         try
         {
             outline = GetComponent<Outline>();
@@ -118,9 +124,9 @@ public class Pawn : MonoBehaviour
     
     public void setPawnStatus(bool isOut)
     {
-        if (!_isOut.Equals(isOut))
+        if (!this.isOut.Equals(isOut))
         {
-            _isOut = isOut;
+            this.isOut = isOut;
         }
         
     }
@@ -128,34 +134,34 @@ public class Pawn : MonoBehaviour
     {
         if (!_currentPad)
         {
-            _isReady = false;
+            isReady = false;
             return;
         }
         if ( (_currentPad.actualPos - transform.position).sqrMagnitude > Mathf.Pow(0.3f,0.3f) || Mathf.Abs(transform.rotation.eulerAngles.x) > 10 || Mathf.Abs(transform.rotation.eulerAngles.z) > 10)
         {
-            if (_isReady)
+            if (isReady)
             {
-                _isReady = false;
+                isReady = false;
             }
         }
         else
         {
-            if (!_isReady)
+            if (!isReady)
             {
-                _isReady = true;
+                isReady = true;
             }
         }
     }
 
     private void updateOutStatus()
     {
-        _isOut = currentPad ? true : false;
+        isOut = currentPad ? true : false;
     }
 
     public async Task recoveryToCurrentPad(float duration)
     {
         
-        if (!_isReady && Team)
+        if (!isReady && Team)
         {
             _boxCollider.enabled = false;
             _rigidbody.useGravity = false;

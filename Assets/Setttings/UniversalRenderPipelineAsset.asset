@@ -32,22 +32,22 @@ MonoBehaviour:
   m_FsrSharpness: 1
   m_MainLightRenderingMode: 1
   m_MainLightShadowsSupported: 1
-  m_MainLightShadowmapResolution: 4096
-  m_AdditionalLightsRenderingMode: 1
+  m_MainLightShadowmapResolution: 1024
+  m_AdditionalLightsRenderingMode: 2
   m_AdditionalLightsPerObjectLimit: 4
-  m_AdditionalLightShadowsSupported: 0
+  m_AdditionalLightShadowsSupported: 1
   m_AdditionalLightsShadowmapResolution: 2048
   m_AdditionalLightsShadowResolutionTierLow: 256
   m_AdditionalLightsShadowResolutionTierMedium: 512
   m_AdditionalLightsShadowResolutionTierHigh: 1024
   m_ReflectionProbeBlending: 0
   m_ReflectionProbeBoxProjection: 0
-  m_ShadowDistance: 64.29
+  m_ShadowDistance: 78.4
   m_ShadowCascadeCount: 3
   m_Cascade2Split: 0.25
   m_Cascade3Split: {x: 0.26257762, y: 0.4796875}
-  m_Cascade4Split: {x: 0.067, y: 0.2, z: 0.467}
-  m_CascadeBorder: 0.4992394
+  m_Cascade4Split: {x: 0.067, y: 0.30144948, z: 0.5262333}
+  m_CascadeBorder: 0.9779416
   m_ShadowDepthBias: 4.4
   m_ShadowNormalBias: 0
   m_AnyShadowsSupported: 1

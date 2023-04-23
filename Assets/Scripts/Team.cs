@@ -8,7 +8,7 @@ public class Team : MonoBehaviour
 {
     public string teamName = "TeamName";
     public List<Pawn> pawns;
-    [SerializeField] private bool isFinish = false;
+    [SerializeField] private bool isWin = false;
     void Awake()
     {
         teamName = transform.name;
@@ -24,17 +24,17 @@ public class Team : MonoBehaviour
 
     public bool Isfinish
     {
-        get => isFinish;
-        set => isFinish = value;
+        get => isWin;
+        set => isWin = value;
     }
 
     public int getNumsFinishPawn()
     {
-        return pawns.Count(x => x._isFinish);
+        return pawns.Count(x => x.isFinish);
     }
     public int getNumsOutPawn()
     {
-        return pawns.Count(x => x._isOut);
+        return pawns.Count(x => x.isOut);
     }
 
     public int getNumsPawn()

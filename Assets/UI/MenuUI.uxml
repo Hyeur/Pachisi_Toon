@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/mainMenuBtn.uss?fileID=7433441132597879392&amp;guid=1cb8c010bc3335540a93b952a08b9b2e&amp;type=3#mainMenuBtn" />
+    <ui:VisualElement style="height: 296px; flex-grow: 1; flex-direction: column; justify-content: center; align-items: center; background-color: rgb(125, 125, 125);">
+        <ui:GroupBox text="Pachisi" name="logo" style="flex-direction: column; flex-shrink: 0; flex-grow: 0; max-width: 50%; max-height: 100%; flex-wrap: nowrap; align-items: center; justify-content: flex-start; -unity-font-definition: none; -unity-font: url(&apos;project://database/Assets/Font/Fibberish%20v1.0/fibberish.ttf?fileID=12800000&amp;guid=5a31effe044eb244680b243cc9e33841&amp;type=3#fibberish&apos;); font-size: 79px; width: 259px; transition-property: scale; transition-duration: 2s; transition-timing-function: ease-in-out-bounce; transition-delay: 1s; opacity: 1; display: flex; visibility: visible; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0);" />
+        <ui:GroupBox tabindex="0" name="btsGroup" style="align-items: center; justify-content: flex-end;">
+            <ui:Button text="Start Game" display-tooltip-when-elided="false" name="StartGame" view-data-key="GameScene" tabindex="1" class="button" />
+            <ui:Button text="Button" display-tooltip-when-elided="true" tabindex="2" class="button" />
+            <ui:Button text="Exit" display-tooltip-when-elided="true" name="ExitBtn" enable-rich-text="true" tabindex="3" class="button" />
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>
