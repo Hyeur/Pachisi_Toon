@@ -51,10 +51,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CloudDensity: 0.49
-    - _CloudSize: 0.12
+    - _CloudDensity: 0.529
+    - _CloudSize: 0.1
     - _CloudSpeed: 0.2
-    - _CloudStrength: 3.04
+    - _CloudStrength: 2.9
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:

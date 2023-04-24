@@ -39,10 +39,11 @@ public class SessionManager : MonoBehaviour
         scene.allowSceneActivation = false;
         
         _loaderCanvas.SetActive(true);
+        _MenuCanvas.SetActive(false);
 
         do
         {
-            await Task.Delay(100);
+            await Task.Delay(200);
             _target = scene.progress;
         } while (scene.progress < 0.9f);
         
