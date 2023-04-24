@@ -11,6 +11,8 @@ public class SessionManager : MonoBehaviour
     public static SessionManager Instance;
 
     [SerializeField] protected GameObject _MenuCanvas;
+    [SerializeField] protected GameObject _SettingCanvas;
+    [SerializeField] protected GameObject _RuleCanvas;
     [SerializeField] protected GameObject _loaderCanvas;
     [SerializeField] protected Image _progressBar;
 
@@ -40,6 +42,8 @@ public class SessionManager : MonoBehaviour
         
         _loaderCanvas.SetActive(true);
         _MenuCanvas.SetActive(false);
+        _SettingCanvas.SetActive(false);
+        _RuleCanvas.SetActive(false);
 
         do
         {
@@ -57,5 +61,17 @@ public class SessionManager : MonoBehaviour
     void Update()
     {
         _progressBar.fillAmount = Mathf.MoveTowards(_progressBar.fillAmount, _target, 3 * Time.deltaTime);
+    }
+
+    public void toggleSettingPanel()
+    {
+        if (_SettingCanvas.activeInHierarchy)
+        {
+            _SettingCanvas.SetActive(false);
+        }
+        else
+        {
+            _SettingCanvas.SetActive(true);
+        }
     }
 }

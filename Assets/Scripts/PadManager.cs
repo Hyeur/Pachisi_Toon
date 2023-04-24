@@ -50,6 +50,7 @@ public class PadManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
     }
 
     private void createMainPath(List<Pad> listLPads)

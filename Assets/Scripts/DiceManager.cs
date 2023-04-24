@@ -43,11 +43,6 @@ public class DiceManager : MonoBehaviour
     
     void Update()
     {
-        r.text = "Dice: " + totalResult;
-        if (totalResult > 0)
-        {
-            r.text += " " + GameManager.Instance.currentTeam.teamName;
-        }
         updateResult();
         endTurnTracking();
     }

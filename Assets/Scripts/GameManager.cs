@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        updateGameState(GameState.RollTheDice);
     }
     
     void Update()

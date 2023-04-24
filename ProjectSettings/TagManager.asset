@@ -48,3 +48,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: HUD
+    uniqueID: 458454003
+    locked: 0
+  - name: ScoreBoard
+    uniqueID: 1592359027
+    locked: 0
