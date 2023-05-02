@@ -16,6 +16,7 @@ public class Pawn : MonoBehaviour
     public bool isFinish = false;
     public bool isMoving = false;
     public bool isMoved = false;
+    public bool isCanNotMoveForPrediction = false;
     private Rigidbody _rigidbody;
     private BoxCollider _boxCollider;
     [SerializeField] protected Pad currentPad;
@@ -26,20 +27,33 @@ public class Pawn : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+        
+        try
+        {
+            _boxCollider = GetComponent<BoxCollider>();
+            _rigidbody = GetComponent<Rigidbody>();
+            _rigidbody.freezeRotation = true;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            throw;
+        }
+        
+        GameManager.OnBeforeGameStateChanged += beforeGameManagerOnBeforeGameStateChanged;
     }
 
-    private void GameManagerOnGameStateChanged(GameManager.GameState state)
+    private void beforeGameManagerOnBeforeGameStateChanged(GameManager.GameState state)
     {
-        _rigidbody.freezeRotation = !(state == GameManager.GameState.RollTheDice);
+        _rigidbody.freezeRotation = state != GameManager.GameState.RollTheDice;
     }
 
     private void OnDestroy()
     {
-        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+        GameManager.OnBeforeGameStateChanged -= beforeGameManagerOnBeforeGameStateChanged;
     }
 
-    void Start()
+    async void Start()
     {
         if (!transform.CompareTag("Pawn"))
         {
@@ -57,17 +71,7 @@ public class Pawn : MonoBehaviour
             Debug.Log(e);
             throw;
         }
-        try
-        {
-            _boxCollider = GetComponent<BoxCollider>();
-            _rigidbody = GetComponent<Rigidbody>();
-            _rigidbody.freezeRotation = true;
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e);
-            throw;
-        }
+
 
         Team = GetComponentInParent<Team>();
 
@@ -76,8 +80,8 @@ public class Pawn : MonoBehaviour
             Team.pawns.Add(this);
         }
 
-         recoveryToCurrentPad(.5f);
-
+        await recoveryToCurrentPad(.5f);
+        
         if (currentPad)
         {
             currentPad.setPawnCaptured(this);
@@ -186,9 +190,9 @@ public class Pawn : MonoBehaviour
         var home = Team.transform.position;
         home = new Vector3(Mathf.Sign(home.x), Mathf.Sign(home.y),
             Mathf.Sign(home.z));
-        home = Vector3.Scale(new Vector3(6, 1, 6), home);
+        home = Vector3.Scale(new Vector3(7, 1, 7), home);
         
-        if (Vector3.Distance(home,transform.position) < 4.5f)
+        if (Vector3.Distance(home,transform.position) < 3.5f)
         {
             _boxCollider.enabled = true;
             _rigidbody.useGravity = true;

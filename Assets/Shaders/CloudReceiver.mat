@@ -51,10 +51,10 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _CastShadows: 1
-    - _CloudDensity: 0.559
+    - _CloudDensity: 0.666
     - _CloudSize: 0.55
     - _CloudSpeed: 0.12
-    - _CloudStrength: 1
+    - _CloudStrength: 0.714
     - _Cull: 2
     - _DstBlend: 0
     - _QueueControl: 0

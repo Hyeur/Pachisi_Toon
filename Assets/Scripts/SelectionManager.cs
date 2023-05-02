@@ -21,17 +21,17 @@ public class SelectionManager : MonoBehaviour
     {
         Instance = this;
         
-        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+        GameManager.OnBeforeGameStateChanged += beforeGameManagerOnBeforeGameStateChanged;
     }
 
-    private void GameManagerOnGameStateChanged(GameManager.GameState state)
+    private void beforeGameManagerOnBeforeGameStateChanged(GameManager.GameState state)
     {
         _active = (state == GameManager.GameState.PickAPawn);
     }
 
     private void OnDestroy()
     {
-        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+        GameManager.OnBeforeGameStateChanged -= beforeGameManagerOnBeforeGameStateChanged;
     }
     
     void Start()

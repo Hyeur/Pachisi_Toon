@@ -6,6 +6,6 @@ public class BtnLoadGaneScene : BaseButton
 {
     protected override void OnClick()
     {
-        SessionManager.Instance.LoadScene("GameScene");
+        SessionManager.Instance.loadScene("GameScene");
     }
 }

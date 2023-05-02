@@ -52,6 +52,19 @@ public class Dice : MonoBehaviour
         controlStatus();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        var relativeVelocity = collision.relativeVelocity.magnitude;
+        if (relativeVelocity > 20f)
+        {
+            SettingManager.Instance.playEffect(SettingManager.Instance.audioCatalog.diceImpact1);
+        }
+        if (relativeVelocity < 20f && relativeVelocity > 10f)
+        {
+            SettingManager.Instance.playEffect(SettingManager.Instance.audioCatalog.diceImpact2);
+        }
+    }
+
     private void rankTheFaces()
     {
         if (_faceList.Length <= 0)

@@ -18,19 +18,22 @@ public class DiceManager : MonoBehaviour
     public int totalResult = 0;
     public bool isRolled;
     [SerializeField] private bool _active = false;
+    
+    [SerializeField] [Range(0,20)] private int tiltAngle = 0;
+    [SerializeField] [Range(1, 3)] private float tossStrenght = 1;
 
     public TextMeshProUGUI r;
     private void Awake()
     {
-        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+        GameManager.OnBeforeGameStateChanged += beforeGameManagerOnBeforeGameStateChanged;
     }
 
     private void OnDestroy()
     {
-        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+        GameManager.OnBeforeGameStateChanged -= beforeGameManagerOnBeforeGameStateChanged;
     }
 
-    private void GameManagerOnGameStateChanged(GameManager.GameState state)
+    private void beforeGameManagerOnBeforeGameStateChanged(GameManager.GameState state)
     {
         _active = (state == GameManager.GameState.RollTheDice);
     }
@@ -119,7 +122,7 @@ public class DiceManager : MonoBehaviour
         Vector3 torque = new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
         diceObject.transform.position = direction;
         diceObject.transform.rotation = Quaternion.Euler(torque.x,torque.y,torque.z);
-        diceObject.GetComponent<Dice>().getRb().velocity = ((new Vector3(0,direction.y + 12,0) - direction)) * 1f;
+        diceObject.GetComponent<Dice>().getRb().velocity = ((new Vector3(0,direction.y + tiltAngle,0) - direction)) * tossStrenght;
         diceObject.GetComponent<Dice>().getRb().AddTorque(torque * 30);
     }
 
@@ -127,10 +130,14 @@ public class DiceManager : MonoBehaviour
     {
         float z = -1f;
         float offset = 0.58f;
+        Vector3 rootScale = diceList[0].transform.transform.localScale;
         foreach (Dice dice in diceList)
         {
-            dice.transform.position = Vector3.up * 15f;
+            dice.getRb().useGravity = false;
+            await dice.transform.DOScale(Vector3.zero, .5f).SetEase(Ease.InOutExpo).AsyncWaitForCompletion();
             await dice.transform.DOMove(new Vector3(0,offset,z),1f).SetEase(Ease.OutExpo).AsyncWaitForCompletion();
+            dice.getRb().useGravity = true;
+            await dice.transform.DOScale(rootScale, .5f).SetEase(Ease.InOutExpo).AsyncWaitForCompletion();
             z += 2f;
         }
     }

@@ -14,17 +14,17 @@ public class TeamManager : MonoBehaviour
     {
         Instance = this;
         TEAMS = GetComponentsInChildren<Team>().ToList();
-        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+        GameManager.OnBeforeGameStateChanged += beforeGameManagerOnBeforeGameStateChanged;
     }
 
-    private void GameManagerOnGameStateChanged(GameManager.GameState state)
+    private void beforeGameManagerOnBeforeGameStateChanged(GameManager.GameState state)
     {
         
     }
 
     private void OnDestroy()
     {
-        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+        GameManager.OnBeforeGameStateChanged -= beforeGameManagerOnBeforeGameStateChanged;
     }
     
 

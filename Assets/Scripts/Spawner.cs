@@ -3,17 +3,51 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
+    public static Spawner Instance;
+    
+    [Header("Team1 Asset")]
     [SerializeField] protected GameObject team1pawnPrefab;
+
+    public Sprite team1Avatar;
+    
+    [Header("Team2 Asset")]
     [SerializeField] protected GameObject team2pawnPrefab;
+    public Sprite team2Avatar;
+    
+    [Header("Team3 Asset")]
     [SerializeField] protected GameObject team3pawnPrefab;
+    public Sprite team3Avatar;
+    
+    [Header("Team4 Asset")]
     [SerializeField] protected GameObject team4pawnPrefab;
+    public Sprite team4Avatar;
+
     public List<Team> playTeam;
+    
+    private Dictionary<Team, Sprite> _teamCatalouge;
     void Awake()
     {
-        Debug.Log(TeamManager.Instance.TEAMS.Count);
+        Spawner.Instance = this;
+
+#if UNITY_EDITOR
+        if ( !SessionManager.Instance || SessionManager.Instance.teams == null)
+        {
+            Debug.LogWarning("Session team null! \n add team for debug");
+            foreach (Team team in TeamManager.Instance.TEAMS)
+            {
+                this.playTeam.Add(team);
+            }
+            if (this.playTeam.Count > 0)
+            {
+                initPawnsForTeams(this.playTeam, 4);
+            }
+            return;
+        }
+#endif
         foreach (var stringTeam in SessionManager.Instance.teams)
         {
             Team tempTeam = TeamManager.Instance.TEAMS.FirstOrDefault(t => t.teamName.Equals(stringTeam));
@@ -22,21 +56,13 @@ public class Spawner : MonoBehaviour
                 playTeam.Add(tempTeam);
             }
         }
-    }
-
-    private void Start()
-    {
-        if (playTeam.Count > 0)
+        if (this.playTeam.Count > 0)
         {
-            initPawnsForTeams(playTeam, 4);
+            initPawnsForTeams(this.playTeam, 4);
         }
-    }
 
-    void Update()
-    {
-        
     }
-
+    
     public void initPawnsForTeams(List<Team> joinedTeam,int pawnAmount)
     {
         GameObject pawnPrefab;
@@ -45,16 +71,16 @@ public class Spawner : MonoBehaviour
             switch (team.teamName)
             {
                 case "Team1":
-                    pawnPrefab = team1pawnPrefab;
+                    pawnPrefab = this.team1pawnPrefab;
                     break;
                 case "Team2":
-                    pawnPrefab = team2pawnPrefab;
+                    pawnPrefab = this.team2pawnPrefab;
                     break;
                 case "Team3":
-                    pawnPrefab = team3pawnPrefab;
+                    pawnPrefab = this.team3pawnPrefab;
                     break;
                 case "Team4":
-                    pawnPrefab = team4pawnPrefab;
+                    pawnPrefab = this.team4pawnPrefab;
                     break;
                 default:
                     pawnPrefab = null;
@@ -78,4 +104,5 @@ public class Spawner : MonoBehaviour
         }
         return result;
     }
+    
 }

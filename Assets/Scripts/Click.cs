@@ -8,17 +8,17 @@ public class Click : MonoBehaviour
     protected bool _active = false;
     void Awake()
     {
-        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+        GameManager.OnBeforeGameStateChanged += beforeGameManagerOnBeforeGameStateChanged;
     }
 
-    private void GameManagerOnGameStateChanged(GameManager.GameState state)
+    private void beforeGameManagerOnBeforeGameStateChanged(GameManager.GameState state)
     {
         _active = state == GameManager.GameState.RollTheDice;
     }
 
     private void OnDestroy()
     {
-        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+        GameManager.OnBeforeGameStateChanged -= beforeGameManagerOnBeforeGameStateChanged;
     }
 
     public void OnMouseDown()
