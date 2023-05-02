@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class toggleSettingPannelBtn : BaseButton
+public class ToggleSettingPanelBtn : BaseButton
 {
     protected override void OnClick()
     {

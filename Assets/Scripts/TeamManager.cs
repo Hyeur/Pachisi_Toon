@@ -38,5 +38,13 @@ public class TeamManager : MonoBehaviour
     {
         return TEAMS.Where(t => t.getNumsFinishPawn() < t.getNumsPawn() && t.getNumsPawn() > 0).ToList();
     }
-    
+
+    public void checkWinCondition(Team team)
+    {
+        if (team.pawns.All(p => p.isFinish == true))
+        {
+            team.isWin = true;
+            GameManager.Instance.rankedList.Add(team);
+        }
+    }
 }

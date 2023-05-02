@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public GameState state;
     public Team currentTeam;
 
+    public List<Team> rankedList;
+    
+
     public enum GameState
     {
         SelectColor,
@@ -94,9 +97,6 @@ public class GameManager : MonoBehaviour
                 if (listTeam.Count < 1)
                 {
                     Debug.Log("No team found!");
-                    HUDManager.Instance.scoreBoard.gameObject.SetActive(true);
-                    await Task.Delay(5000);
-                    SessionManager.Instance.loadScene("MenuScene");
                     return;
                 }
                 else
@@ -109,6 +109,14 @@ public class GameManager : MonoBehaviour
                 }
                 
                 updateListTeamUnFinish();
+
+                if (listTeam.Count == 0)
+                {
+                    HUDManager.Instance.scoreBoard.gameObject.SetActive(true);
+                    await Task.Delay(10000);
+                    SessionManager.Instance.loadScene("MenuScene");
+                    return;
+                }
 
                 updateGameState(GameState.RollTheDice);
                 
@@ -127,7 +135,7 @@ public class GameManager : MonoBehaviour
 
     private void nextTeam()
     {
-        if (!currentTeam)
+        if (!currentTeam || listTeam.Count == 0)
         {
             Debug.Log("unknown current Team");
             return;
@@ -150,4 +158,6 @@ public class GameManager : MonoBehaviour
             pawn.isCanNotMoveForPrediction = false;
         }
     }
+
+
 }

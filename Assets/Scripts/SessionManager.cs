@@ -40,6 +40,11 @@ public class SessionManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        isOpened = _SettingCanvas && _SettingCanvas.activeSelf;
+    }
+
     public void playMusic(AudioClip clip)
     {
         _musicSource.PlayOneShot(clip);

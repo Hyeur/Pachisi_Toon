@@ -10,7 +10,7 @@ public class HUDManager : MonoBehaviour
 {
     public static HUDManager Instance;
     
-    private Dictionary<Team, Sprite> _teamAvatar = new Dictionary<Team, Sprite>();
+    public Dictionary<Team, Sprite> _teamAvatar = new Dictionary<Team, Sprite>();
 
     [SerializeField] private Image currentAvatar;
 

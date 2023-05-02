@@ -77,7 +77,7 @@ public class PawnManager : MonoBehaviour
     {
         foreach (Pawn pawn in listPawn)
         {
-            await pawn.recoveryToCurrentPad(.5f);
+            await pawn.recoveryToCurrentPad(.2f);
         }
     }
 
@@ -127,6 +127,9 @@ public class PawnManager : MonoBehaviour
         {
             await checkOut(pawn,forPrediction);
         }
+        
+        //check Win
+        
 
         // if (pawn.isMoved)
         // {
@@ -203,7 +206,7 @@ public class PawnManager : MonoBehaviour
                 pawn.isMoving = false;
             }
             pawn.isMoved = true;
-            endTurn(pawn.isMoved);
+            endTurn(pawn,pawn.isMoved);
         }
         
     }
@@ -302,7 +305,7 @@ public class PawnManager : MonoBehaviour
                     pawn.isMoving = false;
                     pawn.isMoved = true;
                     pawn.isFinish = true;
-                    endTurn(pawn.isMoved);
+                    endTurn(pawn,pawn.isMoved);
                 }).AsyncWaitForCompletion();
             
             }
@@ -350,7 +353,7 @@ public class PawnManager : MonoBehaviour
                 }
                 else
                 {
-                    endTurn(pawn.isMoved);
+                    endTurn(pawn,pawn.isMoved);
                 }
             }
         }
@@ -397,8 +400,9 @@ public class PawnManager : MonoBehaviour
     {
         return allPawns;
     }
-    private void endTurn(bool isMoved)
+    private void endTurn(Pawn pawn,bool isMoved)
     {
+        TeamManager.Instance.checkWinCondition(pawn.Team);
         if (_active && isMoved)
         {
             Debug.Log("Pawning Ended");
@@ -418,7 +422,7 @@ public class PawnManager : MonoBehaviour
         if (startPad)
         {
             pawn.setCurrentPad(startPad);
-            await pawn.recoveryToCurrentPad(.3f);
+            await pawn.recoveryToCurrentPad(.1f);
             playPawningSound();
             pawn.isMoved = true;
         }

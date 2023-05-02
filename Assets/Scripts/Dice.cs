@@ -54,6 +54,8 @@ public class Dice : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!SettingManager.Instance) return;
+        
         var relativeVelocity = collision.relativeVelocity.magnitude;
         if (relativeVelocity > 20f)
         {

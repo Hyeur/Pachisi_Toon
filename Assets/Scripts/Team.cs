@@ -8,7 +8,7 @@ public class Team : MonoBehaviour
 {
     public string teamName = "TeamName";
     public List<Pawn> pawns;
-    [SerializeField] private bool isWin = false;
+    public bool isWin = false;
     void Awake()
     {
         teamName = transform.name;
