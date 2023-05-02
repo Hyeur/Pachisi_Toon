@@ -134,10 +134,10 @@ public class DiceManager : MonoBehaviour
         foreach (Dice dice in diceList)
         {
             dice.getRb().useGravity = false;
-            await dice.transform.DOScale(Vector3.zero, .5f).SetEase(Ease.InOutExpo).AsyncWaitForCompletion();
-            await dice.transform.DOMove(new Vector3(0,offset,z),1f).SetEase(Ease.OutExpo).AsyncWaitForCompletion();
+            await dice.transform.DOScale(Vector3.zero, .2f).SetEase(Ease.InOutExpo).AsyncWaitForCompletion();
+            await dice.transform.DOMove(new Vector3(0,offset,z),.1f).SetEase(Ease.OutExpo).AsyncWaitForCompletion();
             dice.getRb().useGravity = true;
-            await dice.transform.DOScale(rootScale, .5f).SetEase(Ease.InOutExpo).AsyncWaitForCompletion();
+            await dice.transform.DOScale(rootScale, .2f).SetEase(Ease.InOutExpo).AsyncWaitForCompletion();
             z += 2f;
         }
     }

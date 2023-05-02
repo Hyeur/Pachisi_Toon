@@ -105,7 +105,7 @@ public class PawnManager : MonoBehaviour
                 }
             }
 
-            if (forPrediction && pawn.isCanNotMoveForPrediction) //check for Prediction?
+            if (forPrediction && !pawn.isCanNotMoveForPrediction) //check for Prediction?
             {
                 return;
             }
@@ -242,7 +242,7 @@ public class PawnManager : MonoBehaviour
                 {
                     if (item.Value.isFree && item.Key == result)
                     {
-                        var path = GPads.Where(x => x.Key < item.Key && x.Key > GPads.FirstOrDefault(pawnPad => pawnPad.Value == pawn.getCurrentPad()).Key);
+                        var path = GPads.Where(x => x.Key < item.Key && x.Key != GPads.FirstOrDefault(pawnPad => pawnPad.Value == pawn.getCurrentPad()).Key);
                         if (path.All(p => p.Value.isFree == true))
                         {
                             firstEmptyInx = result;

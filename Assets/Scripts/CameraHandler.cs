@@ -23,7 +23,6 @@ public class CameraHandler : MonoBehaviour
         if (SessionManager.Instance && SessionManager.Instance.isOpened)
         {
             return;
-            
         }
         
         if (Input.GetMouseButtonDown(0))

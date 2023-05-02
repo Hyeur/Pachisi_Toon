@@ -94,6 +94,9 @@ public class GameManager : MonoBehaviour
                 if (listTeam.Count < 1)
                 {
                     Debug.Log("No team found!");
+                    HUDManager.Instance.scoreBoard.gameObject.SetActive(true);
+                    await Task.Delay(5000);
+                    SessionManager.Instance.loadScene("MenuScene");
                     return;
                 }
                 else
