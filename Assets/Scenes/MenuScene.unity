@@ -2696,7 +2696,7 @@ MonoBehaviour:
     all of your pieces from the starting point to the finishing point on the board.\r\n\r\nSetup:
     Each player places their four pieces on their respective starting points on the
     board. Players take turns rolling the dice to determine who goes first. The player
-    rolls a six  or a one on all dices, they go first.\n\nMovement: On a player's
+    rolls a six  or a one on any dices, they go first.\n\nMovement: On a player's
     turn, they roll the dice and move one of their pieces the number of spaces indicated
     by the dice. Pieces can only move in a counter-clockwise direction along the
     track. If a player rolls a six  or a one on all dices, they allows to roll again
