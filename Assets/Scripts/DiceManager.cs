@@ -84,7 +84,7 @@ public class DiceManager : MonoBehaviour
         {
             if (!dice.isIdle())
             {
-                Debug.Log("All dice not stable");
+                // Debug.Log("All dice not stable");
                 return false;
             }
         }
