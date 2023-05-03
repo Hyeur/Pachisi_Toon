@@ -39,10 +39,12 @@ public class SessionManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        playerCount = "2";
     }
 
     private void Start()
     {
+        _SettingCanvas.SetActive(false);
         isOpened = _SettingCanvas && _SettingCanvas.activeSelf;
     }
 
