@@ -15,6 +15,8 @@ MonoBehaviour:
   backgroundMusic: {fileID: 8300000, guid: fcbab43d489e69f4484637a5f35ecc12, type: 3}
   diceImpact1: {fileID: 8300000, guid: 1e218bb53b6d1a041ac6bb9c29832af2, type: 3}
   diceImpact2: {fileID: 8300000, guid: 1cfb45277de1ee6419c56adacd0e6f3f, type: 3}
+  dicexdice: {fileID: 8300000, guid: 600328692a452964a97b3b50d28e71c2, type: 3}
+  dicexpad: {fileID: 8300000, guid: a594c59ea1b61cd4a85f05f68d91d6bc, type: 3}
   pawning:
   - {fileID: 8300000, guid: 6789d67c3cd84e341bcb4d2e8c229aaa, type: 3}
   - {fileID: 8300000, guid: 538c0c240c487e8418263282676d87bc, type: 3}

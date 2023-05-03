@@ -40,7 +40,7 @@ public class UIResult : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void afterGameManagerOnBeforeGameStateChanged(GameManager.GameState state)
     {
-        if (state == GameManager.GameState.RollTheDice || state == GameManager.GameState.PickAPawn)
+        if (state == GameManager.GameState.PickAPawn || state == GameManager.GameState.RollTheDice)
         {
             updateUI();
         }
@@ -64,9 +64,6 @@ public class UIResult : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (DiceManager.Instance.isRolled)
         {
             var sequence = DOTween.Sequence();
-
-            
-            
             result1.sprite = _diceSet[DiceManager.Instance.twoResult[0]];
             result2.sprite = _diceSet[DiceManager.Instance.twoResult[1]];
             sequence.Append(result1.rectTransform.DOScale(new Vector3(.4f,.2f,1), .5f).SetEase(Ease.InExpo));

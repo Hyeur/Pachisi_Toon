@@ -52,7 +52,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _CloudDensity: 0.62
-    - _CloudSize: -0.06
+    - _CloudSize: -0.05
     - _CloudSpeed: 0.1
     - _CloudStrength: 2.4
     - _QueueControl: 0

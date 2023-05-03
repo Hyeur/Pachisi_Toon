@@ -61,13 +61,12 @@ public class HUDManager : MonoBehaviour
         }
         if (GameManager.Instance.currentTeam)
         {
-            var sequence = DOTween.Sequence();
-            await sequence.Append(currentAvatar.rectTransform.DOAnchorPosX(280, .2f).SetEase(Ease.OutExpo))
+            await currentAvatar.rectTransform.DOAnchorPosX(280, .2f).SetEase(Ease.OutExpo)
                 .AsyncWaitForCompletion();
             
             setAvatar();
             
-            await sequence.Append(currentAvatar.rectTransform.DOAnchorPosX(0, .3f).SetEase(Ease.InExpo)).AsyncWaitForCompletion();
+            currentAvatar.rectTransform.DOAnchorPosX(0, .3f).SetEase(Ease.InExpo);
         }
 
     }

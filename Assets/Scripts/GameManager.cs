@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] protected List<Team> listTeam;
+    [SerializeField] protected TextMeshProUGUI r;
     public GameState state;
     public Team currentTeam;
 
@@ -42,9 +44,10 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
+        r.text = DiceManager.Instance.totalResult.ToString() + $"\n {currentTeam}";
     }
 
-    private async void updateListTeamUnFinish()
+    private void updateListTeamUnFinish()
     {
         if (TeamManager.Instance)
         {
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public async void updateGameState(GameState newState,Team switchedTeam = null)
     {
+        
         state = newState;
         OnBeforeGameStateChanged?.Invoke(newState);
         switch (newState)
@@ -61,6 +65,7 @@ public class GameManager : MonoBehaviour
             case GameState.SelectColor:
                 break;
             case GameState.RollTheDice:
+                DiceManager.Instance.totalResult = 0;
                 DiceManager.Instance.isRolled = false;
                 break;
             case GameState.PickAPawn:

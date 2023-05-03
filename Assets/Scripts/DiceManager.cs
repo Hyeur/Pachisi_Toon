@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO.Enumeration;
 using System.Linq;
+using System.Threading.Tasks;
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -22,7 +22,6 @@ public class DiceManager : MonoBehaviour
     [SerializeField] [Range(0,20)] private int tiltAngle = 0;
     [SerializeField] [Range(1, 3)] private float tossStrenght = 1;
 
-    public TextMeshProUGUI r;
     private void Awake()
     {
         GameManager.OnBeforeGameStateChanged += beforeGameManagerOnBeforeGameStateChanged;
@@ -47,7 +46,6 @@ public class DiceManager : MonoBehaviour
     void Update()
     {
         updateResult();
-        endTurnTracking();
     }
 
     private void scanAllDice()
@@ -63,7 +61,7 @@ public class DiceManager : MonoBehaviour
 
     private void updateResult()
     {
-        if (isAllDiceStable() && totalResult == 0)
+        if (_active && isAllDiceStable() && isRolled)
         {
             twoResult.Clear();
             foreach (Dice dice in diceList)
@@ -71,6 +69,7 @@ public class DiceManager : MonoBehaviour
                 twoResult.Add(dice.getTossResult());
                 totalResult += dice.getTossResult();
             }
+            endTurnTracking();
         }
         
     }
@@ -85,14 +84,14 @@ public class DiceManager : MonoBehaviour
         {
             if (!dice.isIdle())
             {
-                //Debug.Log("All dice not stable");
+                Debug.Log("All dice not stable");
                 return false;
             }
         }
         return true;
     }
 
-    private IEnumerator tossTheDiceByTeam(Team team)
+    private async Task tossTheDiceByTeam(Team team)
     {
         foreach (Dice dice in diceList)
         {
@@ -103,16 +102,16 @@ public class DiceManager : MonoBehaviour
         {
             dice.setVisible(true);
             tossDice(dice.gameObject,team.transform.position);
-            yield return new WaitForSeconds(.5f);
+            await Task.Delay(400);
         }
+        
     }
 
-    public void toss(Team team)
+    public async void toss(Team team)
     {
         if (_active)
         {
-            totalResult = 0;
-            StartCoroutine(tossTheDiceByTeam(team));
+            await tossTheDiceByTeam(team);
             isRolled = true;
         }
     }
@@ -121,8 +120,9 @@ public class DiceManager : MonoBehaviour
     {
         Vector3 torque = new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
         diceObject.transform.position = direction;
-        diceObject.transform.rotation = Quaternion.Euler(torque.x,torque.y,torque.z);
-        diceObject.GetComponent<Dice>().getRb().velocity = ((new Vector3(0,direction.y + tiltAngle,0) - direction)) * tossStrenght;
+        diceObject.transform.rotation = Quaternion.Euler(torque.x, torque.y, torque.z);
+        diceObject.GetComponent<Dice>().getRb().velocity =
+            ((new Vector3(0, direction.y + tiltAngle, 0) - direction)) * tossStrenght;
         diceObject.GetComponent<Dice>().getRb().AddTorque(torque * 30);
     }
 
@@ -144,13 +144,11 @@ public class DiceManager : MonoBehaviour
 
     private void endTurnTracking()
     {
-        if (_active && isRolled)
+        if (_active)
         {
-            if (isAllDiceStable())
-            {
-                PawnManager.Instance.resetAllPawn();
-                GameManager.Instance.updateGameState(GameManager.GameState.PickAPawn);
-            }
+            Debug.Log("PickAPawn");
+            PawnManager.Instance.resetAllPawn();
+            GameManager.Instance.updateGameState(GameManager.GameState.PickAPawn);
         }
     }
 

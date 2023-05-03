@@ -105,10 +105,10 @@ public class PawnManager : MonoBehaviour
                 }
             }
 
-            if (forPrediction && !pawn.isCanNotMoveForPrediction) //check for Prediction?
-            {
-                return;
-            }
+            // if (forPrediction && pawn.isCanNotMoveForPrediction) //check for Prediction?
+            // {
+            //     return;
+            // }
         
         
             if (!pawn.isMoved) //check for Prediction?
@@ -166,7 +166,7 @@ public class PawnManager : MonoBehaviour
                 }
             }
         }
-        if (pawn.isFinish || pawn.isMoving && !pawn.isOut && !pawn.isReady && pawn.isMoved)
+        if (pawn.isMoving && !pawn.isReady && pawn.isMoved)
         {
             if (!forPrediction)
             {
@@ -207,6 +207,11 @@ public class PawnManager : MonoBehaviour
             }
             pawn.isMoved = true;
             endTurn(pawn,pawn.isMoved);
+        }
+        else
+        {
+            pawn.isCanNotMoveForPrediction = false;
+            return;
         }
         
     }

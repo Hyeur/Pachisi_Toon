@@ -21,10 +21,10 @@ public class SettingManager : MonoBehaviour
         }
     }
 
-    public void playEffect(AudioClip effectClip)
+    public void playEffect(AudioClip effectClip,float volume = 0)
     {
         // stopEffect();
-        SessionManager.Instance.playSound(effectClip);
+        SessionManager.Instance.playSound(effectClip,volume);
     }
 
     public void stopEffect()

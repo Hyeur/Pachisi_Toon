@@ -49,9 +49,21 @@ public class SessionManager : MonoBehaviour
     {
         _musicSource.PlayOneShot(clip);
     }
-    public void playSound(AudioClip clip)
+    public void playSound(AudioClip clip,float adjust)
     {
+        float currentVolume = _effectSource.volume;
+        if (adjust > 0)
+        {
+            _effectSource.volume += adjust;
+        }
+
+        if (adjust < 0)
+        {
+            _effectSource.volume -= adjust;
+        }
         _effectSource.PlayOneShot(clip);
+        
+        _effectSource.volume = currentVolume;
     }
 
     public void stopSound()

@@ -11,6 +11,8 @@ TagManager:
   - Team3
   - Team4
   - Pawn
+  - Plane
+  - Stone
   layers:
   - Default
   - TransparentFX

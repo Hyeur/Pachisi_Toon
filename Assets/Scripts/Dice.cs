@@ -17,7 +17,7 @@ public class Dice : MonoBehaviour
 
     private float _time = .0f;
 
-    private bool _isIdle = false;
+    [SerializeField] private bool _isIdle = false;
 
     private MeshRenderer _visible;
 
@@ -57,13 +57,36 @@ public class Dice : MonoBehaviour
         if (!SettingManager.Instance) return;
         
         var relativeVelocity = collision.relativeVelocity.magnitude;
-        if (relativeVelocity > 20f)
+
+        if (collision.collider.CompareTag("Pad") || collision.collider.CompareTag("Stone"))
         {
-            SettingManager.Instance.playEffect(SettingManager.Instance.audioCatalog.diceImpact1);
+            if (relativeVelocity > 20f)
+            {
+                SettingManager.Instance.playEffect(SettingManager.Instance.audioCatalog.dicexpad);
+            }
         }
-        if (relativeVelocity < 20f && relativeVelocity > 10f)
+        if (collision.collider.CompareTag("Dice"))
         {
-            SettingManager.Instance.playEffect(SettingManager.Instance.audioCatalog.diceImpact2);
+            if (relativeVelocity > 5f && relativeVelocity < 15f)
+            {
+                SettingManager.Instance.playEffect(SettingManager.Instance.audioCatalog.dicexdice,-.3f);
+            }
+            if (relativeVelocity > 15f )
+            {
+                SettingManager.Instance.playEffect(SettingManager.Instance.audioCatalog.dicexdice);
+            }
+        }
+
+        if (collision.collider.CompareTag("Plane"))
+        {
+            if (relativeVelocity > 20f)
+            {
+                SettingManager.Instance.playEffect(SettingManager.Instance.audioCatalog.diceImpact1);
+            }
+            if (relativeVelocity < 20f && relativeVelocity > 10f)
+            {
+                SettingManager.Instance.playEffect(SettingManager.Instance.audioCatalog.diceImpact2);
+            }
         }
     }
 
@@ -125,7 +148,7 @@ public class Dice : MonoBehaviour
     {
         return _rigidbody;
     }    
-    public BoxCollider GetCollider()
+    public BoxCollider getCollider()
     {
         return _boxCollider;
     }
