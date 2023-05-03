@@ -80,7 +80,7 @@ public class SessionManager : MonoBehaviour
     }    
     public void setSoundVolume(int level)
     {
-        _effectSource.volume = level * 0.1f;
+        _effectSource.volume = level * 0.20f;
     }
 
     public void toggleMusic()
