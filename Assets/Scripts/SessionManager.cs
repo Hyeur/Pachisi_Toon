@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SessionManager : MonoBehaviour
@@ -20,7 +21,7 @@ public class SessionManager : MonoBehaviour
 
     public bool isOpened = false;
 
-    public List<string> teams;
+    public string playerCount;
     private float _target;
 
     [Header("Audio")] 
@@ -126,6 +127,7 @@ public class SessionManager : MonoBehaviour
         if (sceneName.Contains("Game"))
         {
             _BackgroundCanvas.SetActive(false);
+            isOpened = false;
         }
     }
 

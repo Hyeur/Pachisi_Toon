@@ -34,7 +34,7 @@ public class Spawner : MonoBehaviour
         Spawner.Instance = this;
 
 #if UNITY_EDITOR
-        if ( !SessionManager.Instance || SessionManager.Instance.teams == null)
+        if ( !SessionManager.Instance || SessionManager.Instance.playerCount == null)
         {
             Debug.LogWarning("Session team null! \n add team for debug");
             foreach (Team team in TeamManager.Instance.TEAMS)
@@ -48,12 +48,13 @@ public class Spawner : MonoBehaviour
             return;
         }
 #endif
-        foreach (var stringTeam in SessionManager.Instance.teams)
+        int count = Int32.Parse(SessionManager.Instance.playerCount);
+        for (int i = count; i > 0; i--)
         {
-            Team tempTeam = TeamManager.Instance.TEAMS.FirstOrDefault(t => t.teamName.Equals(stringTeam));
-            if (tempTeam)
+            var team = TeamManager.Instance.TEAMS.FirstOrDefault(t => t.teamName.Contains(i.ToString()));
+            if (team)
             {
-                playTeam.Add(tempTeam);
+                playTeam.Add(team);
             }
         }
         if (this.playTeam.Count > 0)
