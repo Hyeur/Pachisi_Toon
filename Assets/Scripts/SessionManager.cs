@@ -76,7 +76,7 @@ public class SessionManager : MonoBehaviour
 
     public void setMusicVolume(int level)
     {
-        _musicSource.volume = level * 0.15f;
+        _musicSource.volume = level * 0.05f;
     }    
     public void setSoundVolume(int level)
     {
